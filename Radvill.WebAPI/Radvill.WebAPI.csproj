@@ -129,6 +129,7 @@
     <Compile Include="Models\HtmlOptionDTO.cs" />
     <Compile Include="Models\LoginDTO.cs" />
     <Compile Include="Models\RegisterDTO.cs" />
+    <Compile Include="Models\NewRequestDTO.cs" />
     <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

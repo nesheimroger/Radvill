@@ -22,7 +22,7 @@ namespace Radvill.WebAPI.Controllers
             _dataFactory = dataFactory;
         }
 
-        public HttpResponseMessage Post([FromBody] RequestDTO requestDto)
+        public HttpResponseMessage Post([FromBody] NewRequestDTO requestDto)
         {
             if (ModelState.IsValid)
             {
@@ -35,6 +35,47 @@ namespace Radvill.WebAPI.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
 
+        }
+
+        public HttpResponseMessage Get()
+        {
+            var user = _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
+
+            var requestList = user.Questions.Select(x => new RequestDTO
+                {
+                    ID = x.ID,
+                    Category = x.Category.Name,
+                    Status = GetStatusForQuestion(x.ID),
+                    Question = x.Text,
+                    TimeStamp = x.TimeStamp,
+                    IsQuestion = true
+                }).ToList();
+
+
+
+            requestList.AddRange(user.Answers.Select(x => new RequestDTO
+                {
+                    ID = x.ID,
+                    Status = x.Accepted,
+                    Category = x.Question.Category.Name,
+                    IsQuestion = false,
+                    TimeStamp = x.TimeStamp
+                }));
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, requestList.OrderByDescending(x => x.TimeStamp));
+
+        }
+
+        private bool? GetStatusForQuestion(int id)
+        {
+            var answers = _dataFactory.AnswerRepository.GetByQuestionId(id);
+            if (answers.Any(x => x.Accepted != false))
+            {
+                return true;
+            }
+            var pendingQuestions = _dataFactory.PendingQuestionRepository.GetByQuestionID(id);
+            return pendingQuestions.Any(x => x.Status == true) ? false : (bool?)null;
         }
     }
 }

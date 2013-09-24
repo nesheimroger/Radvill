@@ -1,9 +1,10 @@
-﻿using Radvill.Models.AdviseModels;
+﻿using System.Collections.Generic;
+using Radvill.Models.AdviseModels;
 
 namespace Radvill.Services.DataFactory.Repositories
 {
     public interface IQuestionRepository :IRepository<Question>
     {
-         
+
     }
 }

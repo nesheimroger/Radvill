@@ -43,8 +43,14 @@ var Radvill = (function () {
             case "AskForAdvice":
                 contentContainer.html(radvill.AskForAdvice.PopulateTemplate(template));
                 break;
+                case "Requests":
+                    radvill.Requests.PopulateTemplate(template, function(result) {
+                        contentContainer.html(result);
+                    });
+                break;
             default:
                 contentContainer.html(template);
+                break;
             }
             contentContainer.data("current-module", name);
         });
@@ -73,32 +79,6 @@ var Radvill = (function () {
             }
 
         }).fail(function () {
-            radvill.UnknownError();
-        });
-    };
-
-    return radvill;
-})();
-
-
-var RadvillApi = (function() {
-    var radvill = {};
-
-    radvill.Ajax = function(url,data,method,callback) {
-        $.ajax({
-            url: url,
-            data: data,
-            method: method,
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true
-        }).done(function (result) {
-            if (callback) {
-                callback(result);
-            }
-            
-        }).fail(function() {
             radvill.UnknownError();
         });
     };
