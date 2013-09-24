@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFactory\Repositories\ICategoryRepository.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />
     <Compile Include="DataFactory\IDataFactory.cs" />
     <Compile Include="DataFactory\Repositories\IRepository.cs" />

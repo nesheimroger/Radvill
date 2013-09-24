@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdviceModels\Category.cs" />
     <Compile Include="UserModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserModels\AdvisorProfile.cs" />

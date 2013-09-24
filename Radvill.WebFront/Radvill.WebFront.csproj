@@ -57,6 +57,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />-->
+    <Folder Include="Modules\Profile\" />
+    <Folder Include="Modules\Requests\" />
+    <Folder Include="Modules\Scores\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
@@ -65,6 +68,8 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="index.html" />
+    <Content Include="Modules\AskForAdvice\AskForAdvice.html" />
+    <Content Include="Modules\AskForAdvice\AskForAdvice.js" />
     <Content Include="Modules\Home\Home.html" />
     <Content Include="Modules\Home\Home.js" />
     <Content Include="Modules\Login\Login.css">

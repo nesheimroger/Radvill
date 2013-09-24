@@ -14,11 +14,19 @@ var Radvill = (function () {
     radvill.Initialize = function() {
         radvill.Login.Initialize();
         radvill.Register.Initialize();
+        radvill.AskForAdvice.Initialize();
     };
 
     radvill.SwitchModule = function(name) {
         $.get("/Modules/" + name + "/" + name + ".html").done(function (template) {
-            contentContainer.html(template);
+
+            switch (name) {
+            case "AskForAdvice":
+                contentContainer.html(radvill.AskForAdvice.PopulateTemplate(template));
+                break;
+            default:
+                contentContainer.html(template);
+            }
             contentContainer.data("current-module", name);
         });
     };

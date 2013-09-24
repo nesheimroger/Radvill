@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Radvill.Models.AdviceModels;
 using Radvill.Services.Security;
 
 namespace Radvill.DataFactory.Migrations
@@ -30,6 +31,11 @@ namespace Radvill.DataFactory.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Categories.AddOrUpdate(x => x.ID, 
+                new Category{ID = 1, Name = "Generelt"},
+                new Category{ID = 2, Name = "Spesielt"}
+            );
             
         }
     }

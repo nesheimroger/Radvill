@@ -8,13 +8,15 @@ namespace Radvill.DataFactory.Public
     {
         private readonly IRadvillContext _context;
 
-        public DataFactory(IRadvillContext context, IUserRepository userRepository)
+        public DataFactory(IRadvillContext context, IUserRepository userRepository, ICategoryRepository categoryRepository)
         {
             _context = context;
             UserRepository = userRepository;
+            CategoryRepository = categoryRepository;
         }
         
         public IUserRepository UserRepository { get; set; }
+        public ICategoryRepository CategoryRepository { get; set; }
 
         public void Dispose()
         {

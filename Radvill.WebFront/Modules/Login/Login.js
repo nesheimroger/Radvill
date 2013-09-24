@@ -1,8 +1,6 @@
 ﻿Radvill.Login = (function() {
     var login = {};
-
-    var loginApiUrl = Radvill.ApiUrl + "Login";
-
+    
     login.Initialize = function () {
 
         Radvill.CallApi("Login", null, "GET", function(loggedIn) {
