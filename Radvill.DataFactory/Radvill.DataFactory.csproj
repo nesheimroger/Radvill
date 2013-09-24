@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201309241703402_AddCategories.Designer.cs">
       <DependentUpon>201309241703402_AddCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309241845119_AddQuestionAndAnswer.cs" />
+    <Compile Include="Migrations\201309241845119_AddQuestionAndAnswer.Designer.cs">
+      <DependentUpon>201309241845119_AddQuestionAndAnswer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\Components\RadvillContext.cs" />
@@ -88,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309241703402_AddCategories.resx">
       <DependentUpon>201309241703402_AddCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309241845119_AddQuestionAndAnswer.resx">
+      <DependentUpon>201309241845119_AddQuestionAndAnswer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

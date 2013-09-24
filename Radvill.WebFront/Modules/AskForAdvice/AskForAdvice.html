@@ -1,18 +1,18 @@
-﻿<section class="askAdvice">
+﻿<section class="askForAdvice">
     <form role="form" id="askForAdviceForm">
         <fieldset>
             <legend>Be om råd</legend>
             <div class="form-group">
-                <label for="Category">Kategori</label>
-                <select name="CategoryId" id="Category" required>
+                <label class="control-label" for="Category">Kategori</label>
+                <select name="CategoryId" id="Category" class="form-control" required>
                     <option value="">Velg kategori</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="Question">Spørsmål</label>
-                <textarea name="Question" id="Question" maxlength="200" required></textarea>
+                <label class="control-label" for="Question">Spørsmål</label>
+                <textarea class="form-control" name="Question" id="Question" maxlength="200" required></textarea>
             </div>
-            <button type="submit" class="btn btn-default btn-primary">Send inn</button>
+            <button type="submit" class="btn btn-primary">Send inn</button>
         </fieldset>
     </form>
 </section>

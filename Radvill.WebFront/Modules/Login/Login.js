@@ -13,10 +13,7 @@
 
         $(document).on('submit', '#loginForm', function(event) {
             event.preventDefault();
-
             var postData = $(this).serialize();
-
-
             Radvill.CallApi("Login", postData, "POST", function(success) {
                 if (success) {
                     Radvill.SwitchModule("Home");
@@ -24,7 +21,6 @@
                     alert("Feil epost eller passord.");
                 }
             });
-
             return false;
         });
     };

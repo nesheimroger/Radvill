@@ -1,5 +1,5 @@
 ﻿$(function () {
-    Radvill.Initialize();
+    Radvill.InitializeModules();
 });
 
 var Radvill = (function () {
@@ -11,14 +11,33 @@ var Radvill = (function () {
   
 
     //Public functions
-    radvill.Initialize = function() {
-        radvill.Login.Initialize();
-        radvill.Register.Initialize();
+    radvill.InitializeModules = function () {
         radvill.AskForAdvice.Initialize();
+        radvill.Home.Initialize();
+        radvill.Info.Initialize();
+        radvill.Login.Initialize();
+        radvill.Profile.Initialize();
+        radvill.Register.Initialize();
+        radvill.Requests.Initialize();
+        radvill.Scores.Initialize();
     };
 
-    radvill.SwitchModule = function(name) {
-        $.get("/Modules/" + name + "/" + name + ".html").done(function (template) {
+    radvill.SwitchModule = function(name, mode) {
+        var templateName;
+
+        switch (name) {
+            case "Info":
+                templateName = mode;
+                break;
+            default:
+                templateName = name;
+                if (mode) {
+                    templateName += mode;
+                }
+                break;
+        }
+
+        $.get("/Modules/" + name + "/" + templateName + ".html").done(function (template) {
 
             switch (name) {
             case "AskForAdvice":

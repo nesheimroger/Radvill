@@ -15,6 +15,8 @@ namespace Radvill.DataFactory.Internal.Components
         public IDbSet<User> Users { get; set; }
         public IDbSet<AdvisorProfile> AdvisorProfiles { get; set; }
         public IDbSet<Category> Categories { get; set; }
+        public IDbSet<Question> Questions { get; set; }
+        public IDbSet<Answer> Answers { get; set; }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
