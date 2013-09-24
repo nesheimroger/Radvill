@@ -9,6 +9,6 @@ namespace Radvill.WebAPI.Models
         public string Question { get; set; }
         public bool? Status { get; set; }
         public DateTime TimeStamp { get; set; }
-        public bool IsQuestion { get; set; }
+        public bool? IsQuestion { get; set; }
     }
 }

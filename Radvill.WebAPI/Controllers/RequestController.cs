@@ -62,6 +62,16 @@ namespace Radvill.WebAPI.Controllers
                     TimeStamp = x.TimeStamp
                 }));
 
+            requestList.AddRange(user.PendingQuestions.Where(x => x.Status == null).Select(x => new RequestDTO
+                {
+                    ID = x.ID,
+                    Category = x.Question.Category.Name,
+                    IsQuestion = null,
+                    Status = null,
+                    Question = x.Question.Text,
+                    TimeStamp = x.Question.TimeStamp
+                }));
+
 
             return Request.CreateResponse(HttpStatusCode.OK, requestList.OrderByDescending(x => x.TimeStamp));
 

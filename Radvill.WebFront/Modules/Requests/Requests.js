@@ -28,6 +28,10 @@
     };
 
     function getStatus(status, isQuestion) {
+        
+        if (isQuestion == null) {
+            return "Venter på deg";
+        }
         //Null indicates that noone have touched it yet
         if (status == null) {
             if (isQuestion) {
