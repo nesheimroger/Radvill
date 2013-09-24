@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Radvill.Models.AdviceModels;
+using Radvill.Models.AdviseModels;
 using Radvill.Services.Security;
 
 namespace Radvill.DataFactory.Migrations

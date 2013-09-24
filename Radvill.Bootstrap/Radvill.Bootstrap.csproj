@@ -60,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Radvill.Advisor\Radvill.Advisor.csproj">
+      <Project>{2030f7ad-adde-4ff1-a1fd-e255f6c673c1}</Project>
+      <Name>Radvill.Advisor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Radvill.Security\Radvill.Security.csproj">
       <Project>{b3932dc8-14b6-406d-89fa-828688075ae0}</Project>
       <Name>Radvill.Security</Name>

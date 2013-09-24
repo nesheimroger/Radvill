@@ -4,9 +4,9 @@ using Radvill.Services.DataFactory.Repositories;
 
 namespace Radvill.DataFactory.Public.Repositories
 {
-    public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
+    public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
     {
-        public CategoryRepository(IRadvillContext context) : base(context)
+        public AnswerRepository(IRadvillContext context) : base(context)
         {
         }
     }

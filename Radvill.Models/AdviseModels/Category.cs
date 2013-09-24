@@ -1,4 +1,4 @@
-﻿namespace Radvill.Models.AdviceModels
+﻿namespace Radvill.Models.AdviseModels
 {
     public class Category
     {

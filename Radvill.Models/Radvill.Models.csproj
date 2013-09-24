@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdviceModels\Answer.cs" />
-    <Compile Include="AdviceModels\Category.cs" />
-    <Compile Include="AdviceModels\Question.cs" />
+    <Compile Include="AdviseModels\Answer.cs" />
+    <Compile Include="AdviseModels\Category.cs" />
+    <Compile Include="AdviseModels\PendingQuestion.cs" />
+    <Compile Include="AdviseModels\Question.cs" />
     <Compile Include="UserModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserModels\AdvisorProfile.cs" />

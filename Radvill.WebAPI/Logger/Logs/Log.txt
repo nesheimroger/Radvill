@@ -816,3 +816,9 @@ Login failed for user 'IIS APPPOOL\Radvill.WebApi'.
    at Radvill.DataFactory.Public.Repositories.GenericRepository`1.Get(Expression`1 filter, Func`2 orderBy) in c:\Projects\Radvill\Radvill.DataFactory\Public\Repositories\GenericRepository.cs:line 32
    at Radvill.DataFactory.Public.Repositories.UserRepository.GetUserByEmail(String email) in c:\Projects\Radvill\Radvill.DataFactory\Public\Repositories\UserRepository.cs:line 16
    at Radvill.Security.Public.AuthenticationService.CreateUser(String displayName, String email, String password) in c:\Projects\Radvill\Radvill.Security\Public\AuthenticationService.cs:line 25
+ERROR 19 RadvillLogger - Exception during Submit Question
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Radvill.Advisor.Public.AdviseManager.SubmitQuestion(Int32 userid, Int32 categoryId, String question) in e:\Projects\Radvill\Radvill.Advisor\Public\AdviseManager.cs:line 50
+ERROR 19 RadvillLogger - Exception during Submit Question
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Radvill.Advisor.Public.AdviseManager.SubmitQuestion(Int32 userid, Int32 categoryId, String question) in e:\Projects\Radvill\Radvill.Advisor\Public\AdviseManager.cs:line 50

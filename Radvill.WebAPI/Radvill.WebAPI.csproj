@@ -122,12 +122,14 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HtmlOptionDTO.cs" />
     <Compile Include="Models\LoginDTO.cs" />
     <Compile Include="Models\RegisterDTO.cs" />
+    <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

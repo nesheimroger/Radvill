@@ -23,18 +23,23 @@ namespace Radvill.WebAPI.Controllers
 
         public HttpResponseMessage Post([FromBody] RegisterDTO registerDto)
         {
-            var status = _authenticationService.CreateUser(registerDto.DisplayName, registerDto.Email, registerDto.Password);
 
-
-            if (status == CreateUserStatus.Success)
+            if (ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie(registerDto.Email, true);
-                return Request.CreateResponse(HttpStatusCode.Created, true);
-            }
+                var status = _authenticationService.CreateUser(registerDto.DisplayName, registerDto.Email, registerDto.Password);
 
-            if (status == CreateUserStatus.EmailAllreadyExists)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, false);
+
+                if (status == CreateUserStatus.Success)
+                {
+                    FormsAuthentication.SetAuthCookie(registerDto.Email, true);
+                    return Request.CreateResponse(HttpStatusCode.Created, true);
+                }
+
+                if (status == CreateUserStatus.EmailAllreadyExists)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, false);
+                }
+                
             }
 
             return Request.CreateResponse(HttpStatusCode.InternalServerError, "An error occured");

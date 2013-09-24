@@ -6,12 +6,12 @@ using System.Web;
 
 namespace Radvill.WebAPI.Models
 {
-    public class HtmlOptionDTO
+    public class RequestDTO
     {
         [Required]
-        public int Value { get; set; }
+        public int CategoryID { get; set; }
 
         [Required]
-        public string Text { get; set; }
+        public string Question { get; set; }
     }
 }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1A474E3C-E010-4C48-8440-3383C0630FBE}</ProjectGuid>
+    <ProjectGuid>{2030F7AD-ADDE-4FF1-A1FD-E255F6C673C1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Radvill.Services</RootNamespace>
-    <AssemblyName>Radvill.Services</AssemblyName>
+    <RootNamespace>Radvill.Advisor</RootNamespace>
+    <AssemblyName>Radvill.Advisor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,25 +39,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Advisor\IAdviseManager.cs" />
-    <Compile Include="DataFactory\Repositories\IAnswerRepository.cs" />
-    <Compile Include="DataFactory\Repositories\ICategoryRepository.cs" />
-    <Compile Include="DataFactory\Repositories\IPendingQuestionRepository.cs" />
-    <Compile Include="DataFactory\Repositories\IQuestionRepository.cs" />
-    <Compile Include="Security\IAuthenticationService.cs" />
-    <Compile Include="DataFactory\IDataFactory.cs" />
-    <Compile Include="DataFactory\Repositories\IRepository.cs" />
-    <Compile Include="DataFactory\Repositories\IUserRepository.cs" />
-    <Compile Include="Security\StatusCodes\CreateUserStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Public\AdviseManager.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Radvill.Configuration\Radvill.Configuration.csproj">
+      <Project>{83765f2a-fb00-4c67-b8ea-2aa74b690ea5}</Project>
+      <Name>Radvill.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radvill.Logger\Radvill.Logger.csproj">
+      <Project>{3820d443-0992-4b46-b8ad-9a834efa01b9}</Project>
+      <Name>Radvill.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Radvill.Models\Radvill.Models.csproj">
       <Project>{dd62ae71-c42b-4e85-af20-b6487855626c}</Project>
       <Name>Radvill.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Radvill.Services\Radvill.Services.csproj">
+      <Project>{1a474e3c-e010-4c48-8440-3383c0630fbe}</Project>
+      <Name>Radvill.Services</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

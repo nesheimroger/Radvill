@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using Radvill.Models.AdviseModels;
 
 namespace Radvill.Models.UserModels
 {
@@ -10,5 +12,9 @@ namespace Radvill.Models.UserModels
         public DateTime Created { get; set; }
 
         public virtual AdvisorProfile AdvisorProfile { get; set; }
+        public virtual Collection<Answer> Answers { get; set; } 
+        public virtual Collection<Question> Questions { get; set; } 
+        public virtual Collection<PendingQuestion> PendingQuestions { get; set; } 
+
     }
 }

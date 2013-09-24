@@ -60,12 +60,19 @@
     <Compile Include="Migrations\201309241845119_AddQuestionAndAnswer.Designer.cs">
       <DependentUpon>201309241845119_AddQuestionAndAnswer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309241950439_AddPendingQuestion.cs" />
+    <Compile Include="Migrations\201309241950439_AddPendingQuestion.Designer.cs">
+      <DependentUpon>201309241950439_AddPendingQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\Components\RadvillContext.cs" />
     <Compile Include="Public\DataFactory.cs" />
+    <Compile Include="Public\Repositories\AnswerRepository.cs" />
     <Compile Include="Public\Repositories\CategoryRepository.cs" />
     <Compile Include="Public\Repositories\GenericRepository.cs" />
+    <Compile Include="Public\Repositories\PendingQuestionRepository.cs" />
+    <Compile Include="Public\Repositories\QuestionRepository.cs" />
     <Compile Include="Public\Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309241845119_AddQuestionAndAnswer.resx">
       <DependentUpon>201309241845119_AddQuestionAndAnswer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309241950439_AddPendingQuestion.resx">
+      <DependentUpon>201309241950439_AddPendingQuestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

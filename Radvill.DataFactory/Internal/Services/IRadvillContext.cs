@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using Radvill.Models.AdviceModels;
+using Radvill.Models.AdviseModels;
 using Radvill.Models.UserModels;
 
 namespace Radvill.DataFactory.Internal.Services
@@ -13,6 +13,7 @@ namespace Radvill.DataFactory.Internal.Services
         IDbSet<Category> Categories { get; set; }
         IDbSet<Question> Questions { get; set; }
         IDbSet<Answer> Answers { get; set; }
+        IDbSet<PendingQuestion> PendingQuestions { get; set; }
 
         int SaveChanges();
         IDbSet<TEntity> Set<TEntity>() where TEntity : class;

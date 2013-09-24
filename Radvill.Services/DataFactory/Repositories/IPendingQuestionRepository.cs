@@ -2,7 +2,7 @@
 
 namespace Radvill.Services.DataFactory.Repositories
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface IPendingQuestionRepository : IRepository<PendingQuestion>
     {
          
     }

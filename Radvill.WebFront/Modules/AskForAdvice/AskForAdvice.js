@@ -11,8 +11,12 @@
         $(document).on('submit', '#askForAdviceForm', function (event) {
             event.preventDefault();
             var postData = $(this).serialize();
-            Radvill.CallApi("Request", postData, "POST", function () {
-                Radvill.SwitchModule("Requests");
+            Radvill.CallApi("Request", postData, "POST", function (success) {
+                if (success) {
+                    Radvill.SwitchModule("Requests");
+                } else {
+                    alert("Beklager, men ingen kunne motta forespørselen din.");
+                }
             });
             return false;
         });

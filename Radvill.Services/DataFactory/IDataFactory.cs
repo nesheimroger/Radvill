@@ -7,6 +7,9 @@ namespace Radvill.Services.DataFactory
     {
         IUserRepository UserRepository { get; set; }
         ICategoryRepository CategoryRepository { get; set; }
+        IQuestionRepository QuestionRepository { get; set; }
+        IAnswerRepository AnswerRepository { get; set; }
+        IPendingQuestionRepository PendingQuestionRepository { get; set; }
 
         void Commit();
     }
