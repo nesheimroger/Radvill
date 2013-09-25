@@ -16,5 +16,10 @@ namespace Radvill.DataFactory.Public.Repositories
         {
             return Get(x => x.Question.ID == id).ToList();
         }
+
+        public PendingQuestion GetByUserIDAndQuestionId(int userId, int questionId)
+        {
+            return Get(x => x.Question.ID == questionId && x.User.ID == userId).FirstOrDefault();
+        }
     }
 }

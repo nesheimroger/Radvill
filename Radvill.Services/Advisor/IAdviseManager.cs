@@ -3,5 +3,6 @@
     public interface IAdviseManager
     {
         bool SubmitQuestion(int userid, int categoryId, string question);
+        bool PassQuestion(int userid, int questionId);
     }
 }

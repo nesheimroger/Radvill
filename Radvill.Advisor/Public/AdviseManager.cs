@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Radvill.Advisor.Private.Services;
 using Radvill.Models.AdviseModels;
 using Radvill.Models.UserModels;
 using Radvill.Services.Advisor;
@@ -11,10 +13,12 @@ namespace Radvill.Advisor.Public
     {
 
         private readonly IDataFactory _dataFactory;
+        private readonly IAdvisorLocator _advisorLocator;
 
-        public AdviseManager(IDataFactory dataFactory)
+        public AdviseManager(IDataFactory dataFactory, IAdvisorLocator advisorLocator)
         {
             _dataFactory = dataFactory;
+            _advisorLocator = advisorLocator;
         }
 
         public bool SubmitQuestion(int userid, int categoryId, string question)
@@ -33,7 +37,8 @@ namespace Radvill.Advisor.Public
                     TimeStamp = timeStamp
                 };
 
-                var reciever = _dataFactory.UserRepository.GetAvailableUsers().FirstOrDefault(x => x.ID != userid);
+                var reciever = _advisorLocator.GetNextInLine();
+
                 if (reciever == null)
                 {
                     return false;
@@ -57,10 +62,47 @@ namespace Radvill.Advisor.Public
                 Logger.Log.Fatal("Exception during Submit Question", e);
                 throw;
             }
-            
-
 
         }
 
+        public bool PassQuestion(int userid, int questionId)
+        {
+            try
+            {
+                
+
+                //Set pass status
+                var previousPending = _dataFactory.PendingQuestionRepository.GetByUserIDAndQuestionId(userid, questionId);
+                previousPending.Status = false;
+                _dataFactory.PendingQuestionRepository.Update(previousPending);
+
+                var reciever = _advisorLocator.GetNextInLine(questionId);
+                if (reciever == null)
+                {
+                    return false;
+                }
+
+                var question = _dataFactory.QuestionRepository.GetByID(questionId);
+                var newPending = new PendingQuestion
+                {
+                    Question = question,
+                    Status = null,
+                    TimeStamp = DateTime.Now,
+                    User = reciever
+                };
+
+                _dataFactory.PendingQuestionRepository.Insert(newPending);
+                _dataFactory.Commit();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Fatal("Exception during Pass Question", e);
+                throw;
+            }
+
+            
+
+        }
     }
 }

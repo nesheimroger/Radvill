@@ -4,13 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2030F7AD-ADDE-4FF1-A1FD-E255F6C673C1}</ProjectGuid>
+    <ProjectGuid>{D52B0F4B-C4E3-4A7B-8036-24DBC96BFF7C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Radvill.Advisor</RootNamespace>
-    <AssemblyName>Radvill.Advisor</AssemblyName>
+    <RootNamespace>Radvill.Tests</RootNamespace>
+    <AssemblyName>Radvill.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.1.1309.1617\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,17 +48,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Private\Components\AdvisorLocator.cs" />
-    <Compile Include="Private\Helpers\TimeStampComparer.cs" />
-    <Compile Include="Private\Services\IAdvisorLocator.cs" />
+    <Compile Include="Advisor\AdvisorLocatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Public\AdviseManager.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Radvill.Advisor\Radvill.Advisor.csproj">
+      <Project>{2030f7ad-adde-4ff1-a1fd-e255f6c673c1}</Project>
+      <Name>Radvill.Advisor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radvill.Bootstrap\Radvill.Bootstrap.csproj">
+      <Project>{d64302d7-ca59-471c-8824-d51aac26f336}</Project>
+      <Name>Radvill.Bootstrap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Radvill.Configuration\Radvill.Configuration.csproj">
       <Project>{83765f2a-fb00-4c67-b8ea-2aa74b690ea5}</Project>
       <Name>Radvill.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radvill.DataFactory\Radvill.DataFactory.csproj">
+      <Project>{3aaf44e5-1f76-4e8b-9fb8-84847862fab3}</Project>
+      <Name>Radvill.DataFactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Radvill.Logger\Radvill.Logger.csproj">
       <Project>{3820d443-0992-4b46-b8ad-9a834efa01b9}</Project>
@@ -59,12 +79,25 @@
       <Project>{dd62ae71-c42b-4e85-af20-b6487855626c}</Project>
       <Name>Radvill.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Radvill.Security\Radvill.Security.csproj">
+      <Project>{b3932dc8-14b6-406d-89fa-828688075ae0}</Project>
+      <Name>Radvill.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Radvill.Services\Radvill.Services.csproj">
       <Project>{1a474e3c-e010-4c48-8440-3383c0630fbe}</Project>
       <Name>Radvill.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Radvill.WebAPI\Radvill.WebAPI.csproj">
+      <Project>{aed6eb11-ea4a-4a67-8c7b-ac70688b7405}</Project>
+      <Name>Radvill.WebAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radvill.WebFront\Radvill.WebFront.csproj">
+      <Project>{bc6d1812-9e2e-4eae-aa9a-d9b48cc9e1e5}</Project>
+      <Name>Radvill.WebFront</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
