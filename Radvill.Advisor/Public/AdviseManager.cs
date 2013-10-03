@@ -6,6 +6,7 @@ using Radvill.Models.AdviseModels;
 using Radvill.Models.UserModels;
 using Radvill.Services.Advisor;
 using Radvill.Services.DataFactory;
+using Radvill.Services.Events;
 
 namespace Radvill.Advisor.Public
 {
@@ -14,11 +15,13 @@ namespace Radvill.Advisor.Public
 
         private readonly IDataFactory _dataFactory;
         private readonly IAdvisorLocator _advisorLocator;
+        private readonly IEventManager _eventManager;
 
-        public AdviseManager(IDataFactory dataFactory, IAdvisorLocator advisorLocator)
+        public AdviseManager(IDataFactory dataFactory, IAdvisorLocator advisorLocator, IEventManager eventManager)
         {
             _dataFactory = dataFactory;
             _advisorLocator = advisorLocator;
+            _eventManager = eventManager;
         }
 
         public bool SubmitQuestion(int userid, int categoryId, string question)
@@ -54,7 +57,7 @@ namespace Radvill.Advisor.Public
 
                 _dataFactory.PendingQuestionRepository.Insert(pendingEntity);
                 _dataFactory.Commit();
-
+                _eventManager.QuestionAssigned(pendingEntity);
                 return true;
             }
             catch (Exception e)
@@ -78,6 +81,7 @@ namespace Radvill.Advisor.Public
                 if (reciever == null)
                 {
                     _dataFactory.Commit();
+                    _eventManager.QuestionPassed(previousPending);
                     return false;
                 }
 
@@ -92,6 +96,8 @@ namespace Radvill.Advisor.Public
 
                 _dataFactory.PendingQuestionRepository.Insert(newPending);
                 _dataFactory.Commit();
+                _eventManager.QuestionPassed(previousPending);
+                _eventManager.QuestionAssigned(newPending);
                 return true;
             }
             catch (Exception e)

@@ -18,7 +18,10 @@ namespace Radvill.WebAPI.Controllers
         {
             _dataFactory = dataFactory;
         }
-
+        /// <summary>
+        /// Get all categories
+        /// </summary>
+        /// <returns>List of Categories (Value & Text)</returns>
         public HttpResponseMessage Get()
         {
             var categories = _dataFactory.CategoryRepository.GetAll()

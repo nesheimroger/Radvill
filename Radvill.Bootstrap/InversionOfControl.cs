@@ -15,6 +15,7 @@ namespace Radvill.Bootstrap
                 y.AssemblyContainingType<DataFactory.Public.DataFactory>();
                 y.AssemblyContainingType<Security.Public.AuthenticationService>();
                 y.AssemblyContainingType<Advisor.Public.AdviseManager>();
+                y.AssemblyContainingType<Events.Public.EventManager>();
                 y.LookForRegistries();
                 y.WithDefaultConventions();
             }));

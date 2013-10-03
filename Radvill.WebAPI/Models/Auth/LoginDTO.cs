@@ -1,4 +1,4 @@
-﻿namespace Radvill.WebAPI.Models
+﻿namespace Radvill.WebAPI.Models.Auth
 {
     public class LoginDTO
     {

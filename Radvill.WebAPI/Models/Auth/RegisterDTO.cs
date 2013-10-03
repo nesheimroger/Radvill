@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Radvill.WebAPI.Models
+namespace Radvill.WebAPI.Models.Auth
 {
     public class RegisterDTO
     {

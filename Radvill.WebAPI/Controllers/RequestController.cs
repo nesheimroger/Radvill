@@ -7,6 +7,7 @@ using System.Web.Http;
 using Radvill.Services.Advisor;
 using Radvill.Services.DataFactory;
 using Radvill.WebAPI.Models;
+using Radvill.WebAPI.Models.Requests;
 
 namespace Radvill.WebAPI.Controllers
 {
@@ -22,6 +23,11 @@ namespace Radvill.WebAPI.Controllers
             _dataFactory = dataFactory;
         }
 
+        /// <summary>
+        /// Submits a question
+        /// </summary>
+        /// <param name="requestDto"></param>
+        /// <returns></returns>
         public HttpResponseMessage Post([FromBody] NewRequestDTO requestDto)
         {
             if (ModelState.IsValid)
@@ -37,6 +43,10 @@ namespace Radvill.WebAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Get all questions and answers for the logged in user
+        /// </summary>
+        /// <returns></returns>
         public HttpResponseMessage Get()
         {
             var user = _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
@@ -75,6 +85,11 @@ namespace Radvill.WebAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, requestList.OrderByDescending(x => x.TimeStamp));
 
+        }
+
+        public HttpResponseMessage Put(int pendingQuestionId, bool startAnswer)
+        {
+            throw new NotImplementedException();
         }
 
         private bool? GetStatusForQuestion(int id)

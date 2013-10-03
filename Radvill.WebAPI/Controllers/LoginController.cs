@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Security;
 using Radvill.Services.Security;
 using Radvill.WebAPI.Models;
+using Radvill.WebAPI.Models.Auth;
 
 namespace Radvill.WebAPI.Controllers
 {
@@ -19,7 +20,11 @@ namespace Radvill.WebAPI.Controllers
             _authenticationService = authenticationService;
         }
 
-
+        /// <summary>
+        /// Attempts to login using the specified credentials
+        /// </summary>
+        /// <param name="loginDto">Login credentials</param>
+        /// <returns>True / False</returns>
         public bool Post([FromBody] LoginDTO loginDto)
         {
             if (_authenticationService.VerifyCredentials(loginDto.Email, loginDto.Password))
@@ -30,6 +35,10 @@ namespace Radvill.WebAPI.Controllers
             return false;
         }
 
+        /// <summary>
+        /// Returns wheter or not a user is authenticated
+        /// </summary>
+        /// <returns>True / False</returns>
         public bool Get()
         {
             return User.Identity.IsAuthenticated;

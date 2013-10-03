@@ -8,6 +8,7 @@ using System.Web.Security;
 using Radvill.Services.Security;
 using Radvill.Services.Security.StatusCodes;
 using Radvill.WebAPI.Models;
+using Radvill.WebAPI.Models.Auth;
 
 namespace Radvill.WebAPI.Controllers
 {

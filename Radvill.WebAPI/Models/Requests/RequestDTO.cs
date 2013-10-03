@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Radvill.WebAPI.Models
+namespace Radvill.WebAPI.Models.Requests
 {
     public class RequestDTO
     {
