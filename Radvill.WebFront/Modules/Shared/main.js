@@ -40,17 +40,17 @@ var Radvill = (function () {
         $.get("/Modules/" + name + "/" + templateName + ".html").done(function (template) {
 
             switch (name) {
-            case "AskForAdvice":
-                contentContainer.html(radvill.AskForAdvice.PopulateTemplate(template));
-                break;
-                case "Requests":
-                    radvill.Requests.PopulateTemplate(template, function(result) {
-                        contentContainer.html(result);
-                    });
-                break;
-            default:
-                contentContainer.html(template);
-                break;
+                case "AskForAdvice":
+                    contentContainer.html(radvill.AskForAdvice.PopulateTemplate(template));
+                    break;
+                    case "Requests":
+                        radvill.Requests.PopulateTemplate(template, function(result) {
+                            contentContainer.html(result);
+                        });
+                    break;
+                default:
+                    contentContainer.html(template);
+                    break;
             }
             contentContainer.data("current-module", name);
         });

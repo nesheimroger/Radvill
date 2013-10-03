@@ -67,7 +67,7 @@ namespace Radvill.Tests.Advisor
                 new User
                     {
                         ID = 3,
-                        Created = new DateTime(2013,03,03),
+                        Created = new DateTime(2013,3,3),
                         Answers = new Collection<Answer>(),
                         PendingQuestions = new Collection<PendingQuestion>()
                             {

@@ -69,14 +69,14 @@ namespace Radvill.Security.Public
             
         }
 
-        private string GetHashedPassword(string email, string password)
+        public static string GetHashedPassword(string email, string password)
         {
             var salt = CreateSalt(email);
             var hashedPassword = HashPassword(salt, password);
             return hashedPassword;
         }
 
-        private string CreateSalt(string userEmail)
+        private static string CreateSalt(string userEmail)
         {
             var saltKeyBytes = Encoding.Default.GetBytes(Configuration.Authentication.SaltKey);
 
@@ -84,7 +84,7 @@ namespace Radvill.Security.Public
             return Convert.ToBase64String(hasher.GetBytes(25));
         }
 
-        private string HashPassword(string salt, string password)
+        private static string HashPassword(string salt, string password)
         {
             var hasher = new Rfc2898DeriveBytes(password,Encoding.Default.GetBytes(salt), 10000);
             return Convert.ToBase64String(hasher.GetBytes(25));

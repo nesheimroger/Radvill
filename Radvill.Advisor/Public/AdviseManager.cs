@@ -69,8 +69,6 @@ namespace Radvill.Advisor.Public
         {
             try
             {
-                
-
                 //Set pass status
                 var previousPending = _dataFactory.PendingQuestionRepository.GetByUserIDAndQuestionId(userid, questionId);
                 previousPending.Status = false;
@@ -79,6 +77,7 @@ namespace Radvill.Advisor.Public
                 var reciever = _advisorLocator.GetNextInLine(questionId);
                 if (reciever == null)
                 {
+                    _dataFactory.Commit();
                     return false;
                 }
 
