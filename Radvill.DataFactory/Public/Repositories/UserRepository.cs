@@ -23,7 +23,7 @@ namespace Radvill.DataFactory.Public.Repositories
             var pending = Context.PendingQuestions.ToList(); 
 
             var inQue = pending.Where(x => x.Status != false).Select(x => x.User.ID).Distinct();                  
-            return Get(x => !inQue.Contains(x.ID)).ToList();
+            return Get(x => !inQue.Contains(x.ID)).Where(x => x.Connected).ToList();
         }
     }
 }

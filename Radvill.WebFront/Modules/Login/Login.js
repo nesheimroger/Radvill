@@ -8,6 +8,7 @@
                 Radvill.SwitchModule("Login");
             } else {
                 Radvill.SwitchModule("Home");
+                Radvill.InitializeSocket();
             }
         });
 
@@ -17,6 +18,7 @@
             Radvill.CallApi("Login", postData, "POST", function(success) {
                 if (success) {
                     Radvill.SwitchModule("Home");
+                    Radvill.InitializeSocket();
                 } else {
                     alert("Feil epost eller passord.");
                 }

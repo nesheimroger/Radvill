@@ -6,7 +6,7 @@ using Radvill.Models.AdviseModels;
 using Radvill.Models.UserModels;
 using Radvill.Services.Advisor;
 using Radvill.Services.DataFactory;
-using Radvill.Services.Events;
+using Radvill.Services.Sockets;
 
 namespace Radvill.Advisor.Public
 {
@@ -40,10 +40,15 @@ namespace Radvill.Advisor.Public
                     TimeStamp = timeStamp
                 };
 
-                var reciever = _advisorLocator.GetNextInLine();
+                _dataFactory.QuestionRepository.Insert(questionEntity);
+                _dataFactory.Commit();
+
+                var reciever = _advisorLocator.GetNextInLine(questionEntity.ID);
 
                 if (reciever == null)
                 {
+                    _dataFactory.QuestionRepository.Delete(questionEntity);
+                    _dataFactory.Commit();
                     return false;
                 }
 
@@ -81,7 +86,6 @@ namespace Radvill.Advisor.Public
                 if (reciever == null)
                 {
                     _dataFactory.Commit();
-                    _eventManager.QuestionPassed(previousPending);
                     return false;
                 }
 
@@ -96,7 +100,6 @@ namespace Radvill.Advisor.Public
 
                 _dataFactory.PendingQuestionRepository.Insert(newPending);
                 _dataFactory.Commit();
-                _eventManager.QuestionPassed(previousPending);
                 _eventManager.QuestionAssigned(newPending);
                 return true;
             }

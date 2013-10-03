@@ -56,6 +56,7 @@
     <Compile Include="Advisor\AdviseManagerTests.cs" />
     <Compile Include="Advisor\AdvisorLocatorTests.cs" />
     <Compile Include="DataFactory\UserRepositoryTests.cs" />
+    <Compile Include="Events\EventHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AuthenticationServiceTests.cs" />
     <Compile Include="TestHelpers\FakeDbSet.cs" />
@@ -79,6 +80,10 @@
     <ProjectReference Include="..\Radvill.DataFactory\Radvill.DataFactory.csproj">
       <Project>{3aaf44e5-1f76-4e8b-9fb8-84847862fab3}</Project>
       <Name>Radvill.DataFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radvill.Sockets\Radvill.Sockets.csproj">
+      <Project>{607783F6-8699-4A51-8B5A-A0FCB3C233FB}</Project>
+      <Name>Radvill.Sockets</Name>
     </ProjectReference>
     <ProjectReference Include="..\Radvill.Logger\Radvill.Logger.csproj">
       <Project>{3820d443-0992-4b46-b8ad-9a834efa01b9}</Project>

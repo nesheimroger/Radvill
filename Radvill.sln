@@ -32,7 +32,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radvill.Advisor", "Radvill.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radvill.Tests", "Radvill.Tests\Radvill.Tests.csproj", "{D52B0F4B-C4E3-4A7B-8036-24DBC96BFF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radvill.Events", "Radvill.Events\Radvill.Events.csproj", "{607783F6-8699-4A51-8B5A-A0FCB3C233FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radvill.Sockets", "Radvill.Sockets\Radvill.Sockets.csproj", "{607783F6-8699-4A51-8B5A-A0FCB3C233FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

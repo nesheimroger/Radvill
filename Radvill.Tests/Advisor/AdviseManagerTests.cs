@@ -12,7 +12,7 @@ using Radvill.Models.AdviseModels;
 using Radvill.Models.UserModels;
 using Radvill.Services.DataFactory;
 using Radvill.Services.DataFactory.Repositories;
-using Radvill.Services.Events;
+using Radvill.Services.Sockets;
 
 namespace Radvill.Tests.Advisor
 {
@@ -43,9 +43,12 @@ namespace Radvill.Tests.Advisor
         public void SubmitQuestion_ShouldAddNewPendingQuestion_IfAdvisorIsAvailable()
         {
             //Arrange
-            _advisorLocator.Setup(x => x.GetNextInLine()).Returns(new User());
+            _advisorLocator.Setup(x => x.GetNextInLine(It.IsAny<int>())).Returns(new User());
             _dataFactory.Setup(x => x.UserRepository.GetByID(It.IsAny<int>())).Returns(new User());
             _dataFactory.Setup(x => x.CategoryRepository.GetByID(It.IsAny<int>())).Returns(new Category());
+
+            var questionRepository = new Mock<IQuestionRepository>();
+            _dataFactory.Setup(x => x.QuestionRepository).Returns(questionRepository.Object);
             var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
             _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
 
@@ -55,7 +58,7 @@ namespace Radvill.Tests.Advisor
             //Assert
             Assert.That(result, Is.True);
             pendingQuestionRepository.Verify(x => x.Insert(It.IsAny<PendingQuestion>()), Times.Once);
-            _dataFactory.Verify(x => x.Commit(), Times.Once);
+            _dataFactory.Verify(x => x.Commit(), Times.Exactly(2));
             _eventManager.Verify(x => x.QuestionAssigned(It.IsAny<PendingQuestion>()), Times.Once);
         }
 
@@ -63,9 +66,11 @@ namespace Radvill.Tests.Advisor
         public void SubmitQuestion_ShouldReturnFalse_IfNotAdvisorIsAvailable()
         {
             //Arrange
-            _advisorLocator.Setup(x => x.GetNextInLine()).Returns((User)null);
+            _advisorLocator.Setup(x => x.GetNextInLine(It.IsAny<int>())).Returns((User)null);
             _dataFactory.Setup(x => x.UserRepository.GetByID(It.IsAny<int>())).Returns(new User());
             _dataFactory.Setup(x => x.CategoryRepository.GetByID(It.IsAny<int>())).Returns(new Category());
+            var questionRepository = new Mock<IQuestionRepository>();
+            _dataFactory.Setup(x => x.QuestionRepository).Returns(questionRepository.Object);
             var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
             _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
 
@@ -75,7 +80,9 @@ namespace Radvill.Tests.Advisor
             //Assert
             Assert.That(result, Is.False);
             pendingQuestionRepository.Verify(x => x.Insert(It.IsAny<PendingQuestion>()), Times.Never);
-            _dataFactory.Verify(x => x.Commit(), Times.Never);
+            questionRepository.Verify(x => x.Insert(It.IsAny<Question>()), Times.Once);
+            questionRepository.Verify(x => x.Delete(It.IsAny<Question>()), Times.Once);
+            _dataFactory.Verify(x => x.Commit(), Times.Exactly(2));
             _eventManager.Verify(x => x.QuestionAssigned(It.IsAny<PendingQuestion>()), Times.Never);
         }
 
@@ -98,7 +105,6 @@ namespace Radvill.Tests.Advisor
             Assert.That(pending.Status, Is.False);
             _dataFactory.Verify(x => x.PendingQuestionRepository.Update(It.IsAny<PendingQuestion>()), Times.Once);
             _dataFactory.Verify(x => x.Commit(), Times.Once);
-            _eventManager.Verify(x => x.QuestionPassed(It.IsAny<PendingQuestion>()), Times.Once);
 
         }
 
@@ -120,7 +126,6 @@ namespace Radvill.Tests.Advisor
             pendingQuestionRepository.Verify(x => x.Insert(It.IsAny<PendingQuestion>()), Times.Once);
             _dataFactory.Verify(x => x.Commit(), Times.Once);
             _eventManager.Verify(x => x.QuestionAssigned(It.IsAny<PendingQuestion>()), Times.Once);
-            _eventManager.Verify(x => x.QuestionPassed(It.IsAny<PendingQuestion>()), Times.Once);
 
         }
 
@@ -142,7 +147,6 @@ namespace Radvill.Tests.Advisor
             pendingQuestionRepository.Verify(x => x.Update(It.IsAny<PendingQuestion>()), Times.Once);
             _dataFactory.Verify(x => x.Commit(), Times.Once);
             _eventManager.Verify(x => x.QuestionAssigned(It.IsAny<PendingQuestion>()), Times.Never);
-            _eventManager.Verify(x => x.QuestionPassed(It.IsAny<PendingQuestion>()), Times.Once);
         }
     }
 }

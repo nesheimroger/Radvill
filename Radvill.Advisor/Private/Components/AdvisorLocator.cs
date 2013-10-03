@@ -18,18 +18,12 @@ namespace Radvill.Advisor.Private.Components
             _dataFactory = dataFactory;
         }
 
-        public User GetNextInLine()
-        {
-            return GetNextInLine(0);
-        }
-
         public User GetNextInLine(int questionId)
         {
             var que = GetUserQue();
-
-            return questionId == 0 
-                ? que.FirstOrDefault() 
-                : que.FirstOrDefault(x => x.PendingQuestions.Any(y => y.Question.ID != questionId));
+            return que.FirstOrDefault(x 
+                => (!x.PendingQuestions.Any() || x.PendingQuestions.Any(y => y.Question.ID != questionId)) 
+                && x.Questions.All(y => y.ID != questionId));
         }
 
         private IEnumerable<User> GetUserQue()

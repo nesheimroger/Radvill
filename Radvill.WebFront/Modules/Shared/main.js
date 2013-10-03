@@ -8,6 +8,7 @@ var Radvill = (function () {
     var radvill = {};
     var contentContainer = $("#content");
     var apiUrl = "http://Radvill.WebApi/api/";
+    var wsUrl = "ws://Radvill.WebApi/api/Socket";
   
 
     //Public functions
@@ -43,10 +44,10 @@ var Radvill = (function () {
                 case "AskForAdvice":
                     contentContainer.html(radvill.AskForAdvice.PopulateTemplate(template));
                     break;
-                    case "Requests":
-                        radvill.Requests.PopulateTemplate(template, function(result) {
-                            contentContainer.html(result);
-                        });
+                case "Requests":
+                    radvill.Requests.PopulateTemplate(template, function(result) {
+                        contentContainer.html(result);
+                    });
                     break;
                 default:
                     contentContainer.html(template);
@@ -81,6 +82,14 @@ var Radvill = (function () {
         }).fail(function () {
             radvill.UnknownError();
         });
+    };
+
+
+    radvill.InitializeSocket = function() {
+        var websocket = new WebSocket(wsUrl);
+        websocket.onmessage = function(event) {
+            alert(event.data);
+        };
     };
 
     return radvill;

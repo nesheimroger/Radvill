@@ -41,7 +41,7 @@ namespace Radvill.Tests.Advisor
         {
             //Arrange
             #region Users
-            
+
             var users = new List<User>
             {
                 new User
@@ -55,34 +55,46 @@ namespace Radvill.Tests.Advisor
                                         TimeStamp = new DateTime(2012, 11, 11)
                                     }
                             },
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>(),
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
                         ID = 2,
                         Created = new DateTime(2013, 2, 2),
                         Answers = new Collection<Answer>(),
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>(),
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
                         ID = 3,
                         Created = new DateTime(2013,3,3),
                         Answers = new Collection<Answer>(),
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>
                             {
                                 new PendingQuestion
                                     {
-                                        TimeStamp = new DateTime(2013, 3, 3)
+                                        TimeStamp = new DateTime(2013, 3, 3),
+                                        Question = new Question
+                                            {
+                                                ID = 0
+                                            }
                                     }
-                            }
+                            },
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
                         ID = 4,
                         Created = new DateTime(2013, 3, 2),
                         Answers = new Collection<Answer>(),
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>(),
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     }
             };
 
@@ -93,7 +105,7 @@ namespace Radvill.Tests.Advisor
             const int expectedUserId = 2;
 
             //Act
-            var result = _advisorLocator.GetNextInLine();
+            var result = _advisorLocator.GetNextInLine(1);
 
             //Assert
             Assert.That(result.ID, Is.EqualTo(expectedUserId));
@@ -104,7 +116,7 @@ namespace Radvill.Tests.Advisor
         {
             //Arrange
             #region Users
-           
+
             var users = new List<User>
             {
                 new User
@@ -118,27 +130,37 @@ namespace Radvill.Tests.Advisor
                                         TimeStamp = new DateTime(2012, 11, 11)
                                     }
                             },
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>(),
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
                         ID = 3,
                         Created = new DateTime(2012,03,03),
                         Answers = new Collection<Answer>(),
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>
                             {
                                 new PendingQuestion
                                     {
-                                        TimeStamp = new DateTime(2013, 3, 3)
+                                        TimeStamp = new DateTime(2013, 3, 3),
+                                        Question = new Question
+                                            {
+                                                ID = 0
+                                            }
                                     }
-                            }
+                            },
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
                         ID = 4,
                         Created = new DateTime(2013, 3, 2),
                         Answers = new Collection<Answer>(),
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>(),
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
             };
             #endregion
@@ -148,7 +170,7 @@ namespace Radvill.Tests.Advisor
             const int expectedUserId = 4;
 
             //Act
-            var result = _advisorLocator.GetNextInLine();
+            var result = _advisorLocator.GetNextInLine(1);
 
             //Assert
             Assert.That(result.ID, Is.EqualTo(expectedUserId));
@@ -159,7 +181,7 @@ namespace Radvill.Tests.Advisor
         {
             //Arrange
             #region Users
-            
+
             var users = new List<User>
             {
                 new User
@@ -173,7 +195,9 @@ namespace Radvill.Tests.Advisor
                                         TimeStamp = new DateTime(2012, 11, 11)
                                     }
                             },
-                        PendingQuestions = new Collection<PendingQuestion>()
+                        PendingQuestions = new Collection<PendingQuestion>(),
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
@@ -184,9 +208,15 @@ namespace Radvill.Tests.Advisor
                             {
                                 new PendingQuestion
                                     {
-                                        TimeStamp = new DateTime(2013, 3, 3)
+                                        TimeStamp = new DateTime(2013, 3, 3),
+                                        Question = new Question
+                                            {
+                                                ID = 0
+                                            }
                                     }
-                            }
+                            },
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     }
             };
             #endregion
@@ -196,7 +226,7 @@ namespace Radvill.Tests.Advisor
             const int expectedUserId = 3;
 
             //Act
-            var result = _advisorLocator.GetNextInLine();
+            var result = _advisorLocator.GetNextInLine(1);
 
             //Assert
             Assert.That(result.ID, Is.EqualTo(expectedUserId));
@@ -231,7 +261,9 @@ namespace Radvill.Tests.Advisor
                                         TimeStamp = new DateTime(2013, 3, 3),
                                         Question = new Question{ID = otherQuestionId}
                                     }
-                            }
+                            },
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
@@ -245,7 +277,9 @@ namespace Radvill.Tests.Advisor
                                         TimeStamp = new DateTime(2013, 2, 2),
                                         Question = new Question{ID = questionId}
                                     }
-                            }
+                            },
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     },
                 new User
                     {
@@ -259,7 +293,9 @@ namespace Radvill.Tests.Advisor
                                         TimeStamp = new DateTime(2013, 3, 3),
                                         Question = new Question{ID = otherQuestionId}
                                     }
-                            }
+                            },
+                        Connected = true,
+                        Questions = new Collection<Question>()
                     }
 
             };
@@ -276,6 +312,7 @@ namespace Radvill.Tests.Advisor
 
             //Assert
             Assert.That(result.ID, Is.EqualTo(expectedUserId));
+        
         }
 
     }
