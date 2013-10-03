@@ -49,6 +49,17 @@ var Radvill = (function () {
                         contentContainer.html(result);
                     });
                     break;
+                case "Profile":
+                    if (mode == undefined) {
+                        radvill.Profile.PopulateDisplayTemplate(template, function(result) {
+                            contentContainer.html(result);
+                        });
+                    } else {
+                        radvill.Profile.PopulateEditorTemplate(template, function (result) {
+                            contentContainer.html(result);
+                        });
+                    }
+                    break;
                 default:
                     contentContainer.html(template);
                     break;

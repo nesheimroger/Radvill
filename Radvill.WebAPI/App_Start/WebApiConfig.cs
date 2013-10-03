@@ -10,7 +10,8 @@ namespace Radvill.WebAPI
     {
         public static void Register(HttpConfiguration config)
         {
-            config.EnableCors(new EnableCorsAttribute(Configuration.WebFront.Url, "*", "*"){ SupportsCredentials = true });
+            config.EnableCors(new EnableCorsAttribute(origins: Configuration.WebFront.Url, headers:"*", methods:"*"){ SupportsCredentials = true });
+            
             
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
