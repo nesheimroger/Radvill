@@ -1,5 +1,7 @@
-﻿using Radvill.Models.AdviseModels;
+﻿using Newtonsoft.Json;
+using Radvill.Models.AdviseModels;
 using Radvill.Services.Sockets;
+using Radvill.Sockets.Internal;
 
 namespace Radvill.Sockets.Public
 {
@@ -17,7 +19,7 @@ namespace Radvill.Sockets.Public
             var client = _socketManager.GetClient(pendingQuestion.User.Email);
             if (client != null)
             {
-                client.Send("QuestionAssigned");
+                client.Send(SocketEvent.QuestionAssigned(pendingQuestion));
             }
         }
 

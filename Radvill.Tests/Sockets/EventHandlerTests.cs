@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using Radvill.Models.AdviseModels;
 
-namespace Radvill.Tests.Events
+namespace Radvill.Tests.Sockets
 {
     [TestFixture]
     public class EventHandlerTests

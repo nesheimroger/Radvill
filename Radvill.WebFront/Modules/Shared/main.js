@@ -97,10 +97,10 @@ var Radvill = (function () {
 
 
     radvill.InitializeSocket = function() {
-        var websocket = new WebSocket(wsUrl);
-        websocket.onmessage = function(event) {
-            alert(event.data);
-        };
+        var websocket = new FancyWebSocket(wsUrl);
+        websocket.bind('QuestionAssigned', function (data) {
+            alert(data.ID);
+        });
     };
 
     return radvill;
