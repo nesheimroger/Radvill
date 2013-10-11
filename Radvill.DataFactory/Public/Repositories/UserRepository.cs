@@ -20,10 +20,10 @@ namespace Radvill.DataFactory.Public.Repositories
         public List<User> GetAvailableUsers()
         {
             //Seems it have to be this way, returns no entries if combined with where
-            var pending = Context.PendingQuestions.ToList(); 
+            var pending = Context.PendingQuestions.ToList();
 
-            var inQue = pending.Where(x => x.Status != false).Select(x => x.User.ID).Distinct();                  
-            return Get(x => !inQue.Contains(x.ID)).Where(x => x.Connected).ToList();
+            var unavailable = pending.Where(x => x.Status == null || (x.Status == true && x.Answer == null)).Select(x => x.User.ID).Distinct();
+            return Get(x => !unavailable.Contains(x.ID)).Where(x => x.Connected).ToList();
         }
     }
 }

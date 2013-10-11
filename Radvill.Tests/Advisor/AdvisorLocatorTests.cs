@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Moq;
 using NUnit.Framework;
-using Radvill.Advisor.Private.Components;
+using Radvill.Advisor.Internal.Components;
 using Radvill.Models.AdviseModels;
 using Radvill.Models.UserModels;
 using Radvill.Services.DataFactory;

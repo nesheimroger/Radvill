@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Radvill.Advisor.Private.Services;
+using Radvill.Advisor.Internal.Services;
 using Radvill.Models.AdviseModels;
 using Radvill.Models.UserModels;
 using Radvill.Services.Advisor;

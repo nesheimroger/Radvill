@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using Radvill.Advisor.Private.Services;
+using Radvill.Advisor.Internal.Services;
 using Radvill.Advisor.Public;
 using Radvill.DataFactory.Public.Repositories;
 using Radvill.Models.AdviseModels;

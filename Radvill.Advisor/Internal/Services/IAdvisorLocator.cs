@@ -1,6 +1,6 @@
 ﻿using Radvill.Models.UserModels;
 
-namespace Radvill.Advisor.Private.Services
+namespace Radvill.Advisor.Internal.Services
 {
     public interface IAdvisorLocator
     {

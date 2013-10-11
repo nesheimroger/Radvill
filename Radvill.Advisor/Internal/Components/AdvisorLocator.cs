@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Radvill.Advisor.Private.Helpers;
-using Radvill.Advisor.Private.Services;
+using Radvill.Advisor.Internal.Helpers;
+using Radvill.Advisor.Internal.Services;
 using Radvill.Models.UserModels;
 using Radvill.Services.DataFactory;
 
-namespace Radvill.Advisor.Private.Components
+namespace Radvill.Advisor.Internal.Components
 {
     public class AdvisorLocator : IAdvisorLocator
     {

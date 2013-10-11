@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Radvill.Advisor.Private.Helpers
+namespace Radvill.Advisor.Internal.Helpers
 {
     public class TimeStampComparer : IComparer<DateTime?>
     {

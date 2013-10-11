@@ -39,9 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Private\Components\AdvisorLocator.cs" />
-    <Compile Include="Private\Helpers\TimeStampComparer.cs" />
-    <Compile Include="Private\Services\IAdvisorLocator.cs" />
+    <Compile Include="Internal\Components\AdvisorLocator.cs" />
+    <Compile Include="Internal\Helpers\TimeStampComparer.cs" />
+    <Compile Include="Internal\Services\IAdvisorLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Public\AdviseManager.cs" />
   </ItemGroup>
