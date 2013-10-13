@@ -10,5 +10,6 @@ namespace Radvill.Services.Advisor
         void PassQuestionForUser(string email);
         bool StartAnswer(PendingQuestion pending);
         DateTime GetDeadline(PendingQuestion pending);
+        bool SubmitAnswer(PendingQuestion pending, string answer);
     }
 }

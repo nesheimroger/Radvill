@@ -114,7 +114,7 @@ namespace Radvill.Advisor.Public
         public void PassQuestionForUser(string email)
         {
             var user = _dataFactory.UserRepository.GetUserByEmail(email);
-            var pending = user.PendingQuestions.Where(x => x.Status != false && x.Answer == null);
+            var pending = user.PendingQuestions.Where(x => x.Status != false && x.Answer == null).ToList();
             foreach (var pendingQuestion in pending)
             {
                 PassQuestion(pendingQuestion);
@@ -137,7 +137,7 @@ namespace Radvill.Advisor.Public
             }
             catch (Exception e)
             {
-                Logger.Log.Fatal("Exception during Start answer", e);
+                Logger.Log.Fatal("Exception during start answer", e);
                 throw;
             }
             
@@ -148,6 +148,41 @@ namespace Radvill.Advisor.Public
             return pending.Status == true 
                 ? pending.TimeStamp.AddSeconds(Configuration.Timeout.Respond + Configuration.Timeout.Answer) 
                 : pending.TimeStamp.AddSeconds(Configuration.Timeout.Respond);
+        }
+
+        public bool SubmitAnswer(PendingQuestion pending, string answer)
+        {
+            try
+            {
+                var now = DateTime.Now;
+                if (now > GetDeadline(pending) || pending.Answer != null)
+                {
+                    return false;
+                }
+
+                var answerEntity = new Answer
+                    {
+                        Accepted = null,
+                        Question = pending.Question,
+                        Text = answer,
+                        User = pending.User,
+                        TimeStamp = now
+                    };
+                pending.Answer = answerEntity;
+                _dataFactory.PendingQuestionRepository.Update(pending);
+                _dataFactory.AnswerRepository.Insert(answerEntity);
+                _dataFactory.Commit();
+                _eventManager.AnswerSubmitted(answerEntity);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Fatal("Exception during submit answer", e);
+                throw;
+                
+            }
+            
+
         }
     }
 }

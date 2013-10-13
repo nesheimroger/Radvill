@@ -1,0 +1,32 @@
+﻿<section class="respond">
+     <form role="form" id="respondForm">
+        <fieldset>
+            <legend>Gi råd</legend>
+            <input type="hidden" name="PendingRequestID" id="PendingRequestID"/>
+            <div class="form-group">
+                <label class="control-label">Kategori</label>
+                <p class="category"></p>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Spørsmål</label>
+                <p class="question"></p>
+            </div>
+            <div class="form-group">
+                <p><span class="glyphicon glyphicon-time"></span><span class="timer"></span></p>
+            </div>
+            <div class="form-group step1">
+                <label class="control-label" for="Question">Ønsker du gi råd?</label>
+                <div>
+                    <button type="button" class="btn btn-success" id="btnStartAnswer">Ja</button>
+                    <button type="button" class="btn btn-danger" id="btnPass">Nei</button>
+                </div>
+                
+            </div>
+            <div class="form-group step2">
+                <label class="control-label" for="Answer">Ditt svar</label>
+                <textarea class="form-control" name="Answer" id="Question" maxlength="200" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary step2">Send inn</button>
+        </fieldset>
+    </form>
+</section>

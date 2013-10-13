@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Radvill.Models.AdviseModels;
 using Radvill.Services.Advisor;
 using Radvill.Services.DataFactory;
 using Radvill.WebAPI.Models;
@@ -47,7 +48,7 @@ namespace Radvill.WebAPI.Controllers
         /// Get all questions and answers for the logged in user
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage Get(int? id)
+        public HttpResponseMessage Get(int? id = null)
         {
 
             if (ModelState.IsValid)
@@ -62,12 +63,12 @@ namespace Radvill.WebAPI.Controllers
                         {
                             ID = pending.ID,
                             Category = pending.Question.Category.Name,
-                            IsQuestion = null,
+                            Type = 3,
                             Question = pending.Question.Text,
                             TimeStamp = pending.Status == false
                                             ? pending.TimeStamp
                                             : _adviseManager.GetDeadline(pending),
-                            Status = pending.Status
+                            Status = GetStatusForPending(pending)
                         };
                         return Request.CreateResponse(HttpStatusCode.OK, dto);
                     }
@@ -80,18 +81,18 @@ namespace Radvill.WebAPI.Controllers
                 {
                     ID = x.ID,
                     Category = x.Category.Name,
-                    Status = GetStatusForQuestion(x.ID),
+                    Status = GetStatusForQuestion(x),
                     Question = x.Text,
                     TimeStamp = x.TimeStamp,
-                    IsQuestion = true
+                    Type = 1
                 }).ToList();
 
                 requestList.AddRange(user.Answers.Select(x => new RequestDTO
                 {
                     ID = x.ID,
-                    Status = x.Accepted,
+                    Status = GetStatusForAnswer(x),
                     Category = x.Question.Category.Name,
-                    IsQuestion = false,
+                    Type = 2,
                     TimeStamp = x.TimeStamp
                 }));
 
@@ -99,8 +100,8 @@ namespace Radvill.WebAPI.Controllers
                 {
                     ID = x.ID,
                     Category = x.Question.Category.Name,
-                    IsQuestion = null,
-                    Status = null,
+                    Type = 3,
+                    Status = GetStatusForPending(x),
                     Question = x.Question.Text,
                     TimeStamp = x.Question.TimeStamp
                 }));
@@ -134,15 +135,41 @@ namespace Radvill.WebAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
-        private bool? GetStatusForQuestion(int id)
+        private int GetStatusForQuestion(Question question)
         {
-            var answers = _dataFactory.AnswerRepository.GetByQuestionId(id);
-            if (answers.Any(x => x.Accepted != false))
+            if (question.Answers.Any(x => x.Accepted == true))
             {
-                return true;
+                return 5;
             }
-            var pendingQuestions = _dataFactory.PendingQuestionRepository.GetByQuestionID(id);
-            return pendingQuestions.Any(x => x.Status == true) ? false : (bool?)null;
+            if (question.Answers.Any(x => x.Accepted == false))
+            {
+                return 4;
+            }
+            if (question.Answers.Any(x => x.Accepted == null))
+            {
+                return 3;
+            }
+
+            var pendingQuestions = _dataFactory.PendingQuestionRepository.GetByQuestionID(question.ID);
+            return pendingQuestions.Any(x => x.Status == true) ? 2 : 1;
+        }
+
+        private static int GetStatusForAnswer(Answer answer)
+        {
+            if (answer.Accepted == null)
+            {
+                return 1;
+            }
+            return answer.Accepted.GetValueOrDefault() ? 3 : 2;
+        }
+
+        private static int GetStatusForPending(PendingQuestion pending)
+        {
+            if (pending.Status == null)
+            {
+                return 1;
+            }
+            return pending.Status.GetValueOrDefault() ? 3 : 2;
         }
     }
 }

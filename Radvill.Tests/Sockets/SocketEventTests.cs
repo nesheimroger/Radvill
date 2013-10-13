@@ -20,5 +20,47 @@ namespace Radvill.Tests.Sockets
              //Assert
              Assert.That(result, Is.EqualTo(expectedJson));
          }
+
+         [Test]
+         public void AnswerSubmitted_ShouldReturnCorrectJson()
+         {
+             //Arrange
+             const string expectedJson = "[\"AnswerSubmitted\",{\"ID\":1}]";
+             var answer = new Answer { ID = 1 };
+
+             //Act
+             var result = SocketEvent.AnswerSubmitted(answer);
+
+             //Assert
+             Assert.That(result, Is.EqualTo(expectedJson));
+         }
+
+         [Test]
+         public void AnswerStarted_ShouldReturnCorrectJson()
+         {
+             //Arrange
+             const string expectedJson = "[\"AnswerStarted\",{\"ID\":1}]";
+             var pendingQuestion = new PendingQuestion { ID = 1, Question = new Question{ID = 1}};
+
+             //Act
+             var result = SocketEvent.AnswerStarted(pendingQuestion);
+
+             //Assert
+             Assert.That(result, Is.EqualTo(expectedJson));
+         }
+
+         [Test]
+         public void AllRecipientsPassed_ShouldReturnCorrectJson()
+         {
+             //Arrange
+             const string expectedJson = "[\"AllRecipientsPassed\",{\"ID\":1}]";
+             var question = new Question {ID = 1};
+
+             //Act
+             var result = SocketEvent.AllRecipientsPassed(question);
+
+             //Assert
+             Assert.That(result, Is.EqualTo(expectedJson));
+         }
     }
 }

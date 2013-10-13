@@ -28,7 +28,7 @@ namespace Radvill.Sockets.Public
             var client = _socketManager.GetClient(pendingQuestion.Question.User.Email);
             if (client != null)
             {
-                client.Send("AnswerStarted");
+                client.Send(SocketEvent.AnswerStarted(pendingQuestion));
             }
         }
 
@@ -37,7 +37,7 @@ namespace Radvill.Sockets.Public
             var client = _socketManager.GetClient(answer.Question.User.Email);
             if (client != null)
             {
-                client.Send("AnswerSubmitted");
+                client.Send(SocketEvent.AnswerSubmitted(answer));
             }
         }
 
@@ -46,7 +46,7 @@ namespace Radvill.Sockets.Public
             var client = _socketManager.GetClient(question.User.Email);
             if (client != null)
             {
-                client.Send("AllRecipientsPassed");
+                client.Send(SocketEvent.AllRecipientsPassed(question));
             }
         }
     }

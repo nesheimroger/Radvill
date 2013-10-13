@@ -20,11 +20,13 @@ var Radvill = (function () {
         radvill.Profile.Initialize();
         radvill.Register.Initialize();
         radvill.Requests.Initialize();
+        radvill.Respond.Initialize();
         radvill.Scores.Initialize();
         radvill.Notifications.Initialize();
     };
 
-    radvill.SwitchModule = function(name, mode) {
+    radvill.SwitchModule = function (name, mode) {
+        
         var templateName;
 
         switch (name) {
@@ -61,6 +63,11 @@ var Radvill = (function () {
                         });
                     }
                     break;
+                case "Respond":
+                    radvill.Respond.PopulateTemplate(template, function (result) {
+                        contentContainer.html(result);
+                    });
+                    break;
                 default:
                     contentContainer.html(template);
                     break;
@@ -68,6 +75,7 @@ var Radvill = (function () {
             contentContainer.data("current-module", name);
         });
     };
+
 
     radvill.CurrentModule = function() {
         return contentContainer.data("current-module");
@@ -102,9 +110,26 @@ var Radvill = (function () {
             Requests.Current.Set(data.ID);
         });
 
-        websocket.bind('close', function() {
-            CallApi(wsUrl, null, "DELETE");
+        websocket.bind('AnswerStarted', function (data) {
+            //TODO: Implement event logic
+            console.log('AnswerStarted: ' + data.ID);
         });
+        
+        websocket.bind('AnswerSubmitted', function (data) {
+            //TODO: Implement event logic
+            console.log('AnswerSubmitted: ' + data.ID);
+        });
+        
+        websocket.bind('AllRecipientsPassed', function (data) {
+            //TODO: Implement event logic
+            console.log('AllRecipientsPassed: ' + data.ID);
+        });
+
+        websocket.bind('close', function() {
+            radvill.CallApi("Socket", null, "DELETE");
+        });
+        
+
     };
    
 

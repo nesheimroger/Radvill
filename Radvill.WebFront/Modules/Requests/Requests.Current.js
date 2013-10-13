@@ -1,33 +1,32 @@
 ﻿Radvill.Requests.Current = (function () {
     var current = {};
     
-    var _requestId;
+    var _pendingRequestId;
     var _timer;
     var _question;
     var _status;
-    
+    var _category;
     var _timerId;
 
     current.Initialize = function() {
         $(document).on('timer-updated', function (e) {
             $('.timer').text(e.remaining);
-            console.log(e.remaining);
         });
 
         Radvill.Notifications.Request.Bind('click', function () {
-            //TODO: Show form
-            console.log("Notification clicked");
+            Radvill.SwitchModule("Respond");
             Radvill.Notifications.Request.Hide();
         });
     };
 
     current.Set = function (id) {
-        _requestId = id;
-        Radvill.CallApi("Request", { id: _requestId }, "GET", function (data) {
+        _pendingRequestId = id;
+        Radvill.CallApi("Request", { id: _pendingRequestId }, "GET", function (data) {
             if (data != undefined) {
-                _requestId = data.ID;
+                _pendingRequestId = data.ID;
                 _question = data.Question;
                 _status = data.Status;
+                _category = data.Category;
                 Radvill.Notifications.Request.Show();
                 startTimer(data.TimeStamp);
             }
@@ -35,17 +34,28 @@
         });
     };
 
-    current.StartAnswer = function(start) {
-        Radvill.CallApi("Request", { id: _requestId, startAnswer: start }, "PUT", function (deadline) {
+    current.StartAnswer = function (start, callback) {
+        clearTimeout(_timerId);
+        Radvill.CallApi("Request", { id: _pendingRequestId, startAnswer: start }, "PUT", function (deadline) {
             if (start) {
-                //TODO: Show answer form
                 startTimer(deadline);
-            } else {
-                //TODO: Go back to previous page
             }
-            
-            
+            if (callback) {
+                callback();
+            }
         });
+    };
+
+    current.GetQuestion = function () {
+        return _question;
+    };
+
+    current.GetCategory = function () {
+        return _category;
+    };
+
+    current.GetId = function () {
+        return _pendingRequestId;
     };
 
     function startTimer(deadline) {
@@ -94,7 +104,12 @@
         });
     };
 
-    
+    current.SubmitAnswer = function(postData, callback) {
+        Radvill.CallApi("Answer", postData, "POST", function (data) {
+            clearTimeout(_timerId);
+            callback(data);
+        });
+    };
 
     return current;
 

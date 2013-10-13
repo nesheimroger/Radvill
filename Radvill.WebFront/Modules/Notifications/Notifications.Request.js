@@ -11,7 +11,7 @@
     };
 
     request.Show = function () {
-        $('#notifications').html(_request);
+        $('#notifications').append(_request);
     };
 
     request.Hide = function() {

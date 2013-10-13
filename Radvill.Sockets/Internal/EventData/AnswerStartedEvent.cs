@@ -2,11 +2,11 @@
 
 namespace Radvill.Sockets.Internal.EventData
 {
-    public class QuestionAssignedEvent
+    public class AnswerStartedEvent
     {
-        public QuestionAssignedEvent(PendingQuestion pendingQuestion)
+        public AnswerStartedEvent(PendingQuestion pendingQuestion)
         {
-            ID = pendingQuestion.ID;
+            ID = pendingQuestion.Question.ID;
         }
 
         public int ID { get; private set; }

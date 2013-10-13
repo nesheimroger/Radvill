@@ -13,7 +13,7 @@
                 var html = $(template);
                 var tableBody = html.find('tbody');
                 for (var i = 0; i < data.length; i++) {
-                    tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getStatus(data[i].status, data[i].IsQuestion) + '</td><td>' + getType(data[i].IsQuestion) + '</td><td>' + data[i].Category + '</td><td>' + data[i].TimeStamp + '</td>');
+                    tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getStatus(data[i].Status, data[i].Type) + '</td><td>' + getType(data[i].Type) + '</td><td>' + data[i].Category + '</td><td>' + data[i].TimeStamp + '</td>');
                 }
 
                 callback(html);
@@ -24,38 +24,52 @@
         });
     };
 
-    function getStatus(status, isQuestion) {
-        
-        if (isQuestion == null) {
-            return "Venter på deg";
-        }
-        //Null indicates that noone have touched it yet
-        if (status == null) {
-            if (isQuestion) {
-                return "Venter på rådgiver";
+    function getStatus(status, type) {
+        if (type == 3) {
+            switch (status) {
+                case 1:
+                    return "Venter på deg";
+                case 2:
+                    return "Avslått å svare"; //Not implmented in API
+                case 3:
+                    return "Svar påbegynt"; //Not implmented in API
+                default:
+                    return "Ukjent status";
             }
-            return "Sendt";
         }
-        
-        //True meens that its complete from your or the others side
-        if (status) {
-            if (isQuestion) {
-                return "Svar godkjent";
-            } 
-            return "Akseptert";
-            
+
+        if (type == 2) {
+            switch (status) {
+                case 1:
+                    return "Svar sendt";
+                case 2:
+                    return "Svar avslått";
+                case 3:
+                    return "Svar akseptert";
+                default:
+                    return "Ukjent status";
+            }
         }
-        
-        //False meens that someone have started to answer or your answer was declined
-        if (isQuestion) {
+
+        switch (status) {
+        case 1:
+            return "Venter på rågiver";
+        case 2:
             return "Venter på svar";
-        } else {
-            return "Avslått";
+        case 3:
+            return "Svar mottat";
+        case 4:
+            return "Svar avslått, venter på nytt svar";
+        case 5:
+            return "Svar godkjent";
+        default:
+            return "Ukjent status";
         }
     }
-    function getType(isQuestion)
+
+    function getType(type)
     {
-        if (isQuestion) {
+        if (type == 1) {
             return "Utgående";
         }
         return "Inngående";

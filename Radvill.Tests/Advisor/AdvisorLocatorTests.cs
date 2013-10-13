@@ -233,7 +233,7 @@ namespace Radvill.Tests.Advisor
         }
 
         [Test]
-        public void GetNextInLine_ShouldReturnUser_WhoWaitedLongest_AndHaveNotRecivedQuestionBefore()
+        public void GetNextInLine_ShouldReturnUser_WhoWaitedLongest_AndHaveNotRecivedAnyQuestionsBefore()
         {
             //Arrange
             const int otherQuestionId = 1;
@@ -314,6 +314,74 @@ namespace Radvill.Tests.Advisor
             Assert.That(result.ID, Is.EqualTo(expectedUserId));
         
         }
+
+        [Test]
+        public void GetNextInLine_ShouldNotReturnUser_WhoHavePassedTheQuestionBefore()
+        {
+            //Arrange
+            var question = new Question{ID = 1};
+            var user = new User { Answers = new Collection<Answer>(), Connected = true};
+            var pending = new PendingQuestion {Question = question, Status = false, User = user};
+            user.PendingQuestions = new Collection<PendingQuestion>{pending};
+
+            var users = new List<User> {user};
+            _userRepositoryMock.Setup(x => x.GetAvailableUsers()).Returns(users);
+            _dataFactoryMock.Setup(x => x.UserRepository).Returns(_userRepositoryMock.Object);
+            _advisorLocator = new AdvisorLocator(_dataFactoryMock.Object);
+
+            //Act
+            var result = _advisorLocator.GetNextInLine(question.ID);
+
+            //Assert
+            Assert.That(result, Is.Null);
+
+        }
+
+        [Test]
+        public void GetNextInLine_ShouldNotReturnUser_WhoHaveAnsweredheQuestionBefore()
+        {
+            //Arrange
+            var question = new Question { ID = 1 };
+            var answer = new Answer {ID = 1, Accepted = false, Question = question};
+            question.Answers = new Collection<Answer>{answer};
+            var user = new User { Answers = new Collection<Answer>{answer}, Connected = true };
+            var pending = new PendingQuestion { Question = question, Status = true, User = user, Answer = answer};
+            user.PendingQuestions = new Collection<PendingQuestion> { pending };
+
+            var users = new List<User> { user };
+            _userRepositoryMock.Setup(x => x.GetAvailableUsers()).Returns(users);
+            _dataFactoryMock.Setup(x => x.UserRepository).Returns(_userRepositoryMock.Object);
+            _advisorLocator = new AdvisorLocator(_dataFactoryMock.Object);
+
+            //Act
+            var result = _advisorLocator.GetNextInLine(question.ID);
+
+            //Assert
+            Assert.That(result, Is.Null);
+
+        }
+
+        [Test]
+        public void GetNextInLine_ShouldNotReturnUser_WhoSubmittedQuestion()
+        {
+            //Arrange
+            var question = new Question { ID = 1 };
+            var user = new User { Questions = new Collection<Question>{question}, Answers = new Collection<Answer>(), Connected = true, PendingQuestions = new Collection<PendingQuestion>()};
+
+            var users = new List<User> { user };
+            _userRepositoryMock.Setup(x => x.GetAvailableUsers()).Returns(users);
+            _dataFactoryMock.Setup(x => x.UserRepository).Returns(_userRepositoryMock.Object);
+            _advisorLocator = new AdvisorLocator(_dataFactoryMock.Object);
+
+            //Act
+            var result = _advisorLocator.GetNextInLine(question.ID);
+
+            //Assert
+            Assert.That(result, Is.Null);
+
+        }
+
+
 
     }
 }

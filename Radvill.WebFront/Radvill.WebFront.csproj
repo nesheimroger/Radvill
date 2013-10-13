@@ -90,6 +90,7 @@
       <DependentUpon>Notifications.scss</DependentUpon>
     </Content>
     <Content Include="Modules\Notifications\Request.html" />
+    <Content Include="Modules\Notifications\Respond.html" />
     <Content Include="Modules\Profile\Profile.css">
       <DependentUpon>Profile.scss</DependentUpon>
     </Content>
@@ -106,6 +107,11 @@
     </Content>
     <Content Include="Modules\Requests\Requests.html" />
     <Content Include="Modules\Requests\Requests.js" />
+    <Content Include="Modules\Respond\Respond.css">
+      <DependentUpon>Respond.scss</DependentUpon>
+    </Content>
+    <Content Include="Modules\Respond\Respond.html" />
+    <Content Include="Modules\Respond\Respond.js" />
     <Content Include="Modules\Scores\Scores.css">
       <DependentUpon>Scores.scss</DependentUpon>
     </Content>
@@ -132,6 +138,8 @@
     <Content Include="Modules\Requests\Requests.Current.js" />
     <Content Include="Modules\Notifications\Notifications.Request.js" />
     <Content Include="Modules\Notifications\Notifications.scss" />
+    <Content Include="Modules\Respond\Respond.scss" />
+    <Content Include="Modules\Notifications\Notifications.Respond.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

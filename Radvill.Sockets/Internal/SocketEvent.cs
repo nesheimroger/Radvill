@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Radvill.Models.AdviseModels;
-using Radvill.Sockets.Internal.Entities;
+using Radvill.Sockets.Internal.EventData;
 
 namespace Radvill.Sockets.Internal
 {
@@ -16,9 +16,26 @@ namespace Radvill.Sockets.Internal
             return json;
         }
 
+        public static string AnswerSubmitted(Answer answer)
+        {
+            var eventData = new AnswerSubmittedEvent(answer);
+            var json = string.Format(JsonBody, "AnswerSubmitted", JsonConvert.SerializeObject(eventData));
+            return json;
+        }
+
+        public static string AnswerStarted(PendingQuestion pendingQuestion)
+        {
+            var eventData = new AnswerStartedEvent(pendingQuestion);
+            var json = string.Format(JsonBody, "AnswerStarted", JsonConvert.SerializeObject(eventData));
+            return json;
+        }
 
 
-        
-
+        public static string AllRecipientsPassed(Question question)
+        {
+            var eventData = new AllRecipientsPassedEvent(question);
+            var json = string.Format(JsonBody, "AllRecipientsPassed", JsonConvert.SerializeObject(eventData));
+            return json;
+        }
     }
 }
