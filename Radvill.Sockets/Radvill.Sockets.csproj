@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\EventData\QuestionAssignedEvent.cs" />
-    <Compile Include="Internal\EventWebSocketHandler.cs" />
+    <Compile Include="Internal\EventWebSocket.cs" />
     <Compile Include="Internal\SocketEvent.cs" />
     <Compile Include="Internal\Socket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

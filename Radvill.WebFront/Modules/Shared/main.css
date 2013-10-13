@@ -4,3 +4,7 @@
     text-decoration: none;
     color: #000; }
 
+.timer {
+  display: inline-block;
+  margin-right: 10px; }
+

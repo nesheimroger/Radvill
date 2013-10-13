@@ -73,26 +73,25 @@ namespace Radvill.Advisor.Public
 
         }
 
-        public bool PassQuestion(int userid, int questionId)
+        public void PassQuestion(PendingQuestion pendingQuestion)
         {
             try
             {
                 //Set pass status
-                var previousPending = _dataFactory.PendingQuestionRepository.GetByUserIDAndQuestionId(userid, questionId);
-                previousPending.Status = false;
-                _dataFactory.PendingQuestionRepository.Update(previousPending);
+                pendingQuestion.Status = false;
+                _dataFactory.PendingQuestionRepository.Update(pendingQuestion);
 
-                var reciever = _advisorLocator.GetNextInLine(questionId);
+                var reciever = _advisorLocator.GetNextInLine(pendingQuestion.Question.ID);
                 if (reciever == null)
                 {
                     _dataFactory.Commit();
-                    return false;
+                    _eventManager.AllRecipientsPassed(pendingQuestion.Question);
+                    return;
                 }
 
-                var question = _dataFactory.QuestionRepository.GetByID(questionId);
                 var newPending = new PendingQuestion
                 {
-                    Question = question,
+                    Question = pendingQuestion.Question,
                     Status = null,
                     TimeStamp = DateTime.Now,
                     User = reciever
@@ -101,7 +100,6 @@ namespace Radvill.Advisor.Public
                 _dataFactory.PendingQuestionRepository.Insert(newPending);
                 _dataFactory.Commit();
                 _eventManager.QuestionAssigned(newPending);
-                return true;
             }
             catch (Exception e)
             {
@@ -111,6 +109,45 @@ namespace Radvill.Advisor.Public
 
             
 
+        }
+
+        public void PassQuestionForUser(string email)
+        {
+            var user = _dataFactory.UserRepository.GetUserByEmail(email);
+            var pending = user.PendingQuestions.Where(x => x.Status != false && x.Answer == null);
+            foreach (var pendingQuestion in pending)
+            {
+                PassQuestion(pendingQuestion);
+            }
+        }
+
+        public bool StartAnswer(PendingQuestion pending)
+        {
+            try
+            {
+                if (DateTime.Now > GetDeadline(pending))
+                {
+                    return false;
+                }
+                pending.Status = true;
+                _dataFactory.PendingQuestionRepository.Update(pending);
+                _dataFactory.Commit();
+                _eventManager.AnswerStarted(pending);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Fatal("Exception during Start answer", e);
+                throw;
+            }
+            
+        }
+
+        public DateTime GetDeadline(PendingQuestion pending)
+        {
+            return pending.Status == true 
+                ? pending.TimeStamp.AddSeconds(Configuration.Timeout.Respond + Configuration.Timeout.Answer) 
+                : pending.TimeStamp.AddSeconds(Configuration.Timeout.Respond);
         }
     }
 }

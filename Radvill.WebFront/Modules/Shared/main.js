@@ -21,6 +21,7 @@ var Radvill = (function () {
         radvill.Register.Initialize();
         radvill.Requests.Initialize();
         radvill.Scores.Initialize();
+        radvill.Notifications.Initialize();
     };
 
     radvill.SwitchModule = function(name, mode) {
@@ -95,13 +96,17 @@ var Radvill = (function () {
         });
     };
 
-
     radvill.InitializeSocket = function() {
         var websocket = new FancyWebSocket(wsUrl);
         websocket.bind('QuestionAssigned', function (data) {
-            alert(data.ID);
+            Requests.Current.Set(data.ID);
+        });
+
+        websocket.bind('close', function() {
+            CallApi(wsUrl, null, "DELETE");
         });
     };
+   
 
     return radvill;
 })();

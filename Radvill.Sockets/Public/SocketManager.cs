@@ -16,9 +16,9 @@ namespace Radvill.Sockets.Public
             _dataFactory = dataFactory;
         }
 
-        public WebSocketHandler GetWebSocketHandler(string email)
+        public WebSocketHandler GetWebSocket(string email)
         {
-            return new EventWebSocketHandler(_dataFactory, email);
+            return new EventWebSocket(_dataFactory, email);
         }
 
         public WebSocketCollection Clients()

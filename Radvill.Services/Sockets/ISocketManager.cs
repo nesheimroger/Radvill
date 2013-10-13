@@ -1,10 +1,11 @@
-﻿using Microsoft.Web.WebSockets;
+﻿using System;
+using Microsoft.Web.WebSockets;
 
 namespace Radvill.Services.Sockets
 {
     public interface ISocketManager
     {
-        WebSocketHandler GetWebSocketHandler(string email);
+        WebSocketHandler GetWebSocket(string email);
         WebSocketCollection Clients();
         WebSocketHandler GetClient(string email);
     }

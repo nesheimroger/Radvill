@@ -1,17 +1,21 @@
-﻿using Microsoft.Web.WebSockets;
+﻿using System;
+using System.Linq;
+using Microsoft.Web.WebSockets;
 using Radvill.Services.DataFactory;
+using Radvill.Services.Sockets;
 
 namespace Radvill.Sockets.Internal
 {
-    public class EventWebSocketHandler : WebSocketHandler
+    public class EventWebSocket : WebSocketHandler
     {
         private readonly IDataFactory _dataFactory;
         private readonly string _email;
 
-        public EventWebSocketHandler(IDataFactory dataFactory, string email)
+        public EventWebSocket(IDataFactory dataFactory, string email)
         {
             _dataFactory = dataFactory;
             _email = email;
+            
         }
 
         public override void OnOpen()

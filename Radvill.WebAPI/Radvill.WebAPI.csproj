@@ -137,6 +137,7 @@
     <Compile Include="Models\Profile\ProfileDTO.cs" />
     <Compile Include="Models\Requests\NewRequestDTO.cs" />
     <Compile Include="Models\Requests\RequestDTO.cs" />
+    <Compile Include="Models\Requests\RespondDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

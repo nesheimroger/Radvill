@@ -47,11 +47,36 @@ namespace Radvill.WebAPI.Controllers
         /// Get all questions and answers for the logged in user
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage Get()
+        public HttpResponseMessage Get(int? id)
         {
-            var user = _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
 
-            var requestList = user.Questions.Select(x => new RequestDTO
+            if (ModelState.IsValid)
+            {
+
+                if (id.HasValue)
+                {
+                    var pending = _dataFactory.PendingQuestionRepository.GetByID(id.Value);
+                    if (pending != null && pending.User.Email == User.Identity.Name)
+                    {
+                        var dto = new RequestDTO
+                        {
+                            ID = pending.ID,
+                            Category = pending.Question.Category.Name,
+                            IsQuestion = null,
+                            Question = pending.Question.Text,
+                            TimeStamp = pending.Status == false
+                                            ? pending.TimeStamp
+                                            : _adviseManager.GetDeadline(pending),
+                            Status = pending.Status
+                        };
+                        return Request.CreateResponse(HttpStatusCode.OK, dto);
+                    }
+                    
+                }
+
+                var user = _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
+
+                var requestList = user.Questions.Select(x => new RequestDTO
                 {
                     ID = x.ID,
                     Category = x.Category.Name,
@@ -61,9 +86,7 @@ namespace Radvill.WebAPI.Controllers
                     IsQuestion = true
                 }).ToList();
 
-
-
-            requestList.AddRange(user.Answers.Select(x => new RequestDTO
+                requestList.AddRange(user.Answers.Select(x => new RequestDTO
                 {
                     ID = x.ID,
                     Status = x.Accepted,
@@ -72,7 +95,7 @@ namespace Radvill.WebAPI.Controllers
                     TimeStamp = x.TimeStamp
                 }));
 
-            requestList.AddRange(user.PendingQuestions.Where(x => x.Status == null).Select(x => new RequestDTO
+                requestList.AddRange(user.PendingQuestions.Where(x => x.Status == null).Select(x => new RequestDTO
                 {
                     ID = x.ID,
                     Category = x.Question.Category.Name,
@@ -83,13 +106,32 @@ namespace Radvill.WebAPI.Controllers
                 }));
 
 
-            return Request.CreateResponse(HttpStatusCode.OK, requestList.OrderByDescending(x => x.TimeStamp));
+                return Request.CreateResponse(HttpStatusCode.OK, requestList.OrderByDescending(x => x.TimeStamp));
 
+                
+            }
+
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
-        public HttpResponseMessage Put(int pendingQuestionId, bool startAnswer)
+        public HttpResponseMessage Put([FromBody]RespondDTO respond)
         {
-            throw new NotImplementedException();
+            var pending = _dataFactory.PendingQuestionRepository.GetByID(respond.ID);
+            if (ModelState.IsValid && pending.User.Email == User.Identity.Name)
+            {
+                if (respond.StartAnswer)
+                {
+                    if (_adviseManager.StartAnswer(pending))
+                    {
+                        var deadline = _adviseManager.GetDeadline(pending);
+                        return Request.CreateResponse(HttpStatusCode.OK, deadline);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
+                _adviseManager.PassQuestion(pending);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         private bool? GetStatusForQuestion(int id)

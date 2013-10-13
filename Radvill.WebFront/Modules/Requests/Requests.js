@@ -2,10 +2,7 @@
     var requests = {};
 
     requests.Initialize = function () {
-
-
-
-
+        requests.Current.Initialize();
     };
 
     requests.PopulateTemplate = function (template, callback) {

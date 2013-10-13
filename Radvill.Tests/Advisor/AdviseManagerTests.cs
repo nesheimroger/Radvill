@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace Radvill.Tests.Advisor
         private Mock<IAdvisorLocator> _advisorLocator;
         private Mock<IDataFactory> _dataFactory;
         private Mock<IEventManager> _eventManager;
+        private Mock<ISocketManager> _socketManager;
         private AdviseManager _adviseManager;
 
         [SetUp]
@@ -30,6 +32,7 @@ namespace Radvill.Tests.Advisor
             _advisorLocator = new Mock<IAdvisorLocator>();
             _dataFactory = new Mock<IDataFactory>();
             _eventManager = new Mock<IEventManager>();
+            _socketManager = new Mock<ISocketManager>();
             _adviseManager = new AdviseManager(_dataFactory.Object, _advisorLocator.Object, _eventManager.Object);
         }
 
@@ -93,17 +96,18 @@ namespace Radvill.Tests.Advisor
 
             var pending = new PendingQuestion
                 {
+                    Question = new Question(),
                     Status = null
                 };
 
-            _dataFactory.Setup(x => x.PendingQuestionRepository.GetByUserIDAndQuestionId(It.IsAny<int>(), It.IsAny<int>())).Returns(pending);
+            _dataFactory.Setup(x => x.PendingQuestionRepository.GetByID(It.IsAny<int>())).Returns(pending);
 
             //Act
-            _adviseManager.PassQuestion(1, 1);
+            _adviseManager.PassQuestion(pending);
 
             //Assert
             Assert.That(pending.Status, Is.False);
-            _dataFactory.Verify(x => x.PendingQuestionRepository.Update(It.IsAny<PendingQuestion>()), Times.Once);
+            _dataFactory.Verify(x => x.PendingQuestionRepository.Update(pending), Times.Once);
             _dataFactory.Verify(x => x.Commit(), Times.Once);
 
         }
@@ -111,18 +115,20 @@ namespace Radvill.Tests.Advisor
         [Test]
         public void PassQuestion_ShouldAddNewPendingQuestion_IfAdvisorIsAvailable()
         {
+
+            var pending = new PendingQuestion {Question = new Question()};
             //Arrange
             var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
-            pendingQuestionRepository.Setup(x => x.GetByUserIDAndQuestionId(It.IsAny<int>(), It.IsAny<int>())).Returns(new PendingQuestion());
+            pendingQuestionRepository.Setup(x => x.GetByID(It.IsAny<int>())).Returns(pending);
             _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
             _dataFactory.Setup(x => x.QuestionRepository.GetByID(It.IsAny<int>())).Returns(new Question());
             _advisorLocator.Setup(x => x.GetNextInLine(It.IsAny<int>())).Returns(new User());
             
             //Act
-            var result = _adviseManager.PassQuestion(1,1);
+            _adviseManager.PassQuestion(pending);
 
             //Assert
-            Assert.That(result, Is.True);
+            pendingQuestionRepository.Verify(x => x.Update(pending), Times.Once);
             pendingQuestionRepository.Verify(x => x.Insert(It.IsAny<PendingQuestion>()), Times.Once);
             _dataFactory.Verify(x => x.Commit(), Times.Once);
             _eventManager.Verify(x => x.QuestionAssigned(It.IsAny<PendingQuestion>()), Times.Once);
@@ -130,23 +136,184 @@ namespace Radvill.Tests.Advisor
         }
 
         [Test]
-        public void PassQuestion_ShouldReturnFalse_IfAdvisorIsNotAvailable()
+        public void PassQuestion_ShouldNotifyEventManager_IfAdvisorIsNotAvailable()
         {
             //Arrange
+            var pending = new PendingQuestion { Question = new Question() };
             var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
-            pendingQuestionRepository.Setup(x => x.GetByUserIDAndQuestionId(It.IsAny<int>(), It.IsAny<int>())).Returns(new PendingQuestion());
+            pendingQuestionRepository.Setup(x => x.GetByID(It.IsAny<int>())).Returns(pending);
             _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
             _dataFactory.Setup(x => x.QuestionRepository.GetByID(It.IsAny<int>())).Returns(new Question());
             _advisorLocator.Setup(x => x.GetNextInLine(It.IsAny<int>())).Returns((User)null);
 
             //Act
-            var result = _adviseManager.PassQuestion(1, 1);
+            _adviseManager.PassQuestion(pending);
+
+            //Assert
+            pendingQuestionRepository.Verify(x => x.Update(pending), Times.Once);
+            _dataFactory.Verify(x => x.Commit(), Times.Once);
+            _eventManager.Verify(x => x.QuestionAssigned(It.IsAny<PendingQuestion>()), Times.Never);
+            _eventManager.Verify(x => x.AllRecipientsPassed(It.IsAny<Question>()), Times.Once);
+        }
+
+        
+
+        [Test]
+        public void StartAnswer_ShouldUpdateStatus_ToPendingQuestion_WhenSuccessfull()
+        {
+            //Arrange
+            var pending = new PendingQuestion
+            {
+                TimeStamp = DateTime.Now.AddSeconds(-Configuration.Timeout.Respond + 5) //5 seconds to spare
+            };
+            var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
+            pendingQuestionRepository.Setup(x => x.GetByID(It.IsAny<int>())).Returns(pending);
+            _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
+
+            //Act
+            _adviseManager.StartAnswer(pending);
+
+            //Assert
+            Assert.That(pending.Status, Is.True);
+            pendingQuestionRepository.Verify(x => x.Update(pending), Times.Once);
+            _dataFactory.Verify(x => x.Commit(), Times.Once);
+
+        }
+
+
+        [Test]
+        public void StartAnswer_ShouldNotifyEventManager_WhenSuccessfull()
+        {
+            //Arrange
+            var pending = new PendingQuestion
+            {
+                TimeStamp = DateTime.Now.AddSeconds(-Configuration.Timeout.Respond + 5) //5 seconds to spare
+            };
+            var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
+            pendingQuestionRepository.Setup(x => x.GetByID(It.IsAny<int>())).Returns(pending);
+            _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
+
+            //Act
+            _adviseManager.StartAnswer(pending);
+
+            //Assert
+            _eventManager.Verify(x => x.AnswerStarted(pending), Times.Once);
+        }
+
+        [Test]
+        public void StartAnswer_ShouldReturnTrue_WhenSuccessfull()
+        {
+            //Arrange
+            var pending = new PendingQuestion
+            {
+                TimeStamp = DateTime.Now.AddSeconds(-Configuration.Timeout.Respond + 5) //5 seconds to spare
+            };
+            var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
+            pendingQuestionRepository.Setup(x => x.GetByID(It.IsAny<int>())).Returns(pending);
+            _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
+
+            //Act
+            var result = _adviseManager.StartAnswer(pending);
+
+            //Assert
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void StartAnswer_ShouldNotNotifyEventManagerOrUpdateStatus_AndReturnFalse_IfUserWasTooLate()
+        {
+            
+
+            var pending = new PendingQuestion
+                {
+                    TimeStamp = DateTime.Now.AddSeconds(-Configuration.Timeout.Respond - 5) //5 seconds too late
+                };
+            var pendingQuestionRepository = new Mock<IPendingQuestionRepository>();
+            pendingQuestionRepository.Setup(x => x.GetByID(It.IsAny<int>())).Returns(pending);
+            _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(pendingQuestionRepository.Object);
+
+            //Act
+            var result = _adviseManager.StartAnswer(pending);
 
             //Assert
             Assert.That(result, Is.False);
-            pendingQuestionRepository.Verify(x => x.Update(It.IsAny<PendingQuestion>()), Times.Once);
-            _dataFactory.Verify(x => x.Commit(), Times.Once);
-            _eventManager.Verify(x => x.QuestionAssigned(It.IsAny<PendingQuestion>()), Times.Never);
+            pendingQuestionRepository.Verify(x => x.Update(pending), Times.Never);
+            _dataFactory.Verify(x => x.Commit(), Times.Never);
+            _eventManager.Verify(x => x.AnswerStarted(pending), Times.Never);
         }
+
+        [Test]
+        public void GetDeadLine_ShouldReturnCorrectDateTime_ForRespond()
+        {
+            //Arrange
+            var now = DateTime.Now;
+            var expected = now.AddSeconds(Configuration.Timeout.Respond);
+
+            var pending = new PendingQuestion
+                {
+                    Status = null,
+                    TimeStamp = now
+                };
+
+            //Act
+            var result = _adviseManager.GetDeadline(pending);
+
+            //Arrange
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetDeadline_ShouldReturnCorrectDateTime_ForAnswer()
+        {
+            //Arrange
+            var now = DateTime.Now;
+            var expected = now.AddSeconds(Configuration.Timeout.Respond + Configuration.Timeout.Answer);
+
+            var pending = new PendingQuestion
+            {
+                Status = true,
+                TimeStamp = now
+            };
+
+            //Act
+            var result = _adviseManager.GetDeadline(pending);
+
+            //Arrange
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void PassQuestionForUser_ShouldPassQuestionsThatAreUnanswered()
+        {
+            var shouldPass = new PendingQuestion {Status = null, Question = new Question(){ID = 1}};
+            var shouldPass2 = new PendingQuestion {Status = true, Question = new Question(){ID = 1}};
+            var shouldNotPass = new PendingQuestion {Status = true, Answer = new Answer(), Question = new Question(){ID = 1}};
+            var shouldNotPass2 = new PendingQuestion {Status = false, Question = new Question(){ID = 1}};
+
+
+            var user = new User
+                {
+                    PendingQuestions = new Collection<PendingQuestion>
+                        {
+                            shouldPass,
+                            shouldPass2,
+                            shouldNotPass,
+                            shouldNotPass2
+                        }
+                };
+
+            _dataFactory.Setup(x => x.UserRepository.GetUserByEmail(It.IsAny<string>())).Returns(user);
+            _dataFactory.Setup(x => x.PendingQuestionRepository).Returns(new Mock<IPendingQuestionRepository>().Object);
+            _advisorLocator.Setup(x => x.GetNextInLine(It.IsAny<int>())).Returns(new User());
+            _adviseManager.PassQuestionForUser("email");
+
+            Assert.That(shouldPass.Status, Is.False);
+            Assert.That(shouldPass2.Status, Is.False);
+            Assert.That(shouldNotPass.Status, Is.True);
+            Assert.That(shouldNotPass2.Status, Is.False);
+        }
+        
+
+        
     }
 }

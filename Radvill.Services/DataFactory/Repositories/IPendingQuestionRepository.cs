@@ -5,7 +5,5 @@ namespace Radvill.Services.DataFactory.Repositories
 {
     public interface IPendingQuestionRepository : IRepository<PendingQuestion>
     {
-        List<PendingQuestion> GetByQuestionID(int id);
-        PendingQuestion GetByUserIDAndQuestionId(int userId, int questionId);
-    }
+        List<PendingQuestion> GetByQuestionID(int id);    }
 }
