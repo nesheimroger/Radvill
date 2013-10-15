@@ -72,17 +72,11 @@ var Radvill = (function () {
                     contentContainer.html(template);
                     break;
             }
-            contentContainer.data("current-module", name);
         });
     };
 
-
-    radvill.CurrentModule = function() {
-        return contentContainer.data("current-module");
-    };
-
     radvill.UnknownError = function() {
-        alert("En ukjent feil oppstod.");
+        alert("En feil oppstod.");
     };
     
     radvill.CallApi = function (url, data, method, callback) {

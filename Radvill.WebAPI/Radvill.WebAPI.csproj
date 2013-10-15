@@ -132,6 +132,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EvaluationDTO.cs" />
     <Compile Include="Models\HtmlOptionDTO.cs" />
     <Compile Include="Models\Auth\LoginDTO.cs" />
     <Compile Include="Models\Auth\RegisterDTO.cs" />
