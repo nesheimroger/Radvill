@@ -137,21 +137,39 @@ namespace Radvill.WebAPI.Controllers
 
         private int GetStatusForQuestion(Question question)
         {
+            
+
             if (question.Answers.Any(x => x.Accepted == true))
+            {
+                return 6;
+            }
+
+            if (question.Answers.All(x => x.Accepted == false) && question.Stopped)
             {
                 return 5;
             }
+
             if (question.Answers.Any(x => x.Accepted == false))
             {
                 return 4;
             }
+
             if (question.Answers.Any(x => x.Accepted == null))
             {
                 return 3;
             }
 
             var pendingQuestions = _dataFactory.PendingQuestionRepository.GetByQuestionID(question.ID);
-            return pendingQuestions.Any(x => x.Status == true) ? 2 : 1;
+            if (pendingQuestions.Any(x => x.Status == true))
+            {
+                return 2;
+            }
+
+            if (pendingQuestions.Any(x => x.Status == null))
+            {
+                return 1;
+            }
+            return 0;
         }
 
         private static int GetStatusForAnswer(Answer answer)

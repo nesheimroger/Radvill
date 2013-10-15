@@ -80,10 +80,13 @@ namespace Radvill.Advisor.Public
                 //Set pass status
                 pendingQuestion.Status = false;
                 _dataFactory.PendingQuestionRepository.Update(pendingQuestion);
+                _dataFactory.Commit();
 
                 var reciever = _advisorLocator.GetNextInLine(pendingQuestion.Question.ID);
                 if (reciever == null)
                 {
+                    pendingQuestion.Question.Stopped = true;
+                    _dataFactory.QuestionRepository.Update(pendingQuestion.Question);
                     _dataFactory.Commit();
                     _eventManager.AllRecipientsPassed(pendingQuestion.Question);
                     return;

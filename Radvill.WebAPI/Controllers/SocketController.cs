@@ -17,12 +17,10 @@ namespace Radvill.WebAPI.Controllers
     {
 
         private readonly ISocketManager _socketManager;
-        private readonly IAdviseManager _adviseManager;
 
-        public SocketController(ISocketManager socketManager, IAdviseManager adviseManager)
+        public SocketController(ISocketManager socketManager)
         {
             _socketManager = socketManager;
-            _adviseManager = adviseManager;
         }
 
         public HttpResponseMessage Get()
@@ -31,15 +29,6 @@ namespace Radvill.WebAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
         }
 
-        /// <summary>
-        /// Should be called when the socket closes, so that we can pass eventual unanswered requests the user have
-        /// </summary>
-        /// <returns></returns>
-        public HttpResponseMessage Delete()
-        {
-            _adviseManager.PassQuestionForUser(User.Identity.Name);
-            return Request.CreateResponse(HttpStatusCode.OK);
-        }
 
     }
 

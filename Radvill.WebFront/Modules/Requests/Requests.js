@@ -61,6 +61,8 @@
         case 4:
             return "Svar avslått, venter på nytt svar";
         case 5:
+            return "Alle tilgjenglige rådgivere avslått å svare, eller svar ikke godkjent";
+        case 6:
             return "Svar godkjent";
         default:
             return "Ukjent status";

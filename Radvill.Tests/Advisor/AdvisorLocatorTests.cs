@@ -320,9 +320,11 @@ namespace Radvill.Tests.Advisor
         {
             //Arrange
             var question = new Question{ID = 1};
-            var user = new User { Answers = new Collection<Answer>(), Connected = true};
+            var question2 = new Question{ID = 2};
+            var user = new User { Answers = new Collection<Answer>(), Questions = new Collection<Question>(),Connected = true};
             var pending = new PendingQuestion {Question = question, Status = false, User = user};
-            user.PendingQuestions = new Collection<PendingQuestion>{pending};
+            var pending2 = new PendingQuestion {Question = question2, Status = false, User = user};
+            user.PendingQuestions = new Collection<PendingQuestion>{pending, pending2};
 
             var users = new List<User> {user};
             _userRepositoryMock.Setup(x => x.GetAvailableUsers()).Returns(users);
@@ -330,7 +332,7 @@ namespace Radvill.Tests.Advisor
             _advisorLocator = new AdvisorLocator(_dataFactoryMock.Object);
 
             //Act
-            var result = _advisorLocator.GetNextInLine(question.ID);
+            var result = _advisorLocator.GetNextInLine(question2.ID);
 
             //Assert
             Assert.That(result, Is.Null);

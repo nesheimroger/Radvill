@@ -9,6 +9,7 @@ namespace Radvill.Models.AdviseModels
         public int ID { get; set; }
         public string Text { get; set; }
         public DateTime TimeStamp { get; set; }
+        public bool Stopped { get; set; }
 
         public virtual User User { get; set; }
         public virtual Category Category { get; set; }

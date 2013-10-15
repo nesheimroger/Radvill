@@ -33,8 +33,10 @@ namespace Radvill.DataFactory.Migrations
             //
 
             context.Categories.AddOrUpdate(x => x.ID, 
-                new Category{ID = 1, Name = "Generelt"},
-                new Category{ID = 2, Name = "Spesielt"}
+                new Category{ID = 1, Name = "Sjekking"},
+                new Category{ID = 2, Name = "Samliv"},
+                new Category{ID = 3, Name = "Sosialt"},
+                new Category{ID = 4, Name = "Annet"}
             );
             
         }

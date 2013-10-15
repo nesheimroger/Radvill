@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Mvc;
 using Microsoft.Web.WebSockets;
+using Radvill.Services.Advisor;
 using Radvill.Services.DataFactory;
 using Radvill.Services.Sockets;
 
@@ -28,6 +30,10 @@ namespace Radvill.Sockets.Internal
         {
             Socket.Clients.Remove(this);
             SetConnectionStatus(false);
+
+
+            var adviseManager = DependencyResolver.Current.GetService<IAdviseManager>();
+            adviseManager.PassQuestionForUser(_email);
         }
 
 

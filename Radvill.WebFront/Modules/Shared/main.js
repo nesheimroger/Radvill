@@ -107,7 +107,7 @@ var Radvill = (function () {
     radvill.InitializeSocket = function() {
         var websocket = new FancyWebSocket(wsUrl);
         websocket.bind('QuestionAssigned', function (data) {
-            Requests.Current.Set(data.ID);
+            Radvill.Requests.Current.Set(data.ID);
         });
 
         websocket.bind('AnswerStarted', function (data) {
@@ -126,7 +126,7 @@ var Radvill = (function () {
         });
 
         websocket.bind('close', function() {
-            radvill.CallApi("Socket", null, "DELETE");
+            //radvill.CallApi("Socket", null, "DELETE");
         });
         
 

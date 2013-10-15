@@ -22,7 +22,7 @@ namespace Radvill.Advisor.Internal.Components
         {
             var que = GetUserQue();
             return que.FirstOrDefault(x 
-                => (!x.PendingQuestions.Any() || x.PendingQuestions.Any(y => y.Question.ID != questionId)) 
+                => (!x.PendingQuestions.Any() || x.PendingQuestions.All(y => y.Question.ID != questionId)) 
                 && x.Questions.All(y => y.ID != questionId));
         }
 

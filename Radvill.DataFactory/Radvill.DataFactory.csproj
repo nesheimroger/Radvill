@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201310031746256_AddConnectedToUser.Designer.cs">
       <DependentUpon>201310031746256_AddConnectedToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310150819552_AddStoppedToQuestion.cs" />
+    <Compile Include="Migrations\201310150819552_AddStoppedToQuestion.Designer.cs">
+      <DependentUpon>201310150819552_AddStoppedToQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\Components\RadvillContext.cs" />
@@ -112,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310031746256_AddConnectedToUser.resx">
       <DependentUpon>201310031746256_AddConnectedToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310150819552_AddStoppedToQuestion.resx">
+      <DependentUpon>201310150819552_AddStoppedToQuestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

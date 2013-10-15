@@ -8,7 +8,7 @@
     var _category;
     var _timerId;
 
-    current.Initialize = function() {
+    current.Initialize = function () {
         $(document).on('timer-updated', function (e) {
             $('.timer').text(e.remaining);
         });
@@ -60,10 +60,9 @@
 
     function startTimer(deadline) {
         var now = new Date();
-        var deadlineDate = new Date(deadline);
-        var adjusted = deadlineDate.getTime() + (deadlineDate.getTimezoneOffset() * 60 * 1000);
+        var deadlineDate = new Date(deadline+ '+02:00');
 
-        var diff = adjusted - now.getTime();
+        var diff = deadlineDate.getTime() - now.getTime();
 
         if (diff < 1000) {
             current.StartAnswer(false);

@@ -109,3 +109,8 @@ UpgradeLog*.XML
 
 # SASS
 *.sass-cache
+
+
+
+#App specific
+Radvill.Logger/Logs/
