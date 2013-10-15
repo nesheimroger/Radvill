@@ -49,5 +49,14 @@ namespace Radvill.Sockets.Public
                 client.Send(SocketEvent.AllRecipientsPassed(question));
             }
         }
+
+        public void AnswerEvaluated(Answer answer)
+        {
+            var client = _socketManager.GetClient(answer.User.Email);
+            if (client != null)
+            {
+                client.Send(SocketEvent.AnswerEvaluated(answer));
+            }
+        }
     }
 }

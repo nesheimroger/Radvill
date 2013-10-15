@@ -11,5 +11,7 @@ namespace Radvill.Services.Advisor
         bool StartAnswer(PendingQuestion pending);
         DateTime GetDeadline(PendingQuestion pending);
         bool SubmitAnswer(PendingQuestion pending, string answer);
+        void AcceptAnswer(Answer answer);
+        bool DeclineAnswer(Answer answer);
     }
 }

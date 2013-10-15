@@ -85,33 +85,49 @@ namespace Radvill.Advisor.Public
                 var reciever = _advisorLocator.GetNextInLine(pendingQuestion.Question.ID);
                 if (reciever == null)
                 {
-                    pendingQuestion.Question.Stopped = true;
-                    _dataFactory.QuestionRepository.Update(pendingQuestion.Question);
-                    _dataFactory.Commit();
-                    _eventManager.AllRecipientsPassed(pendingQuestion.Question);
+                    AllRecipientsPassed(pendingQuestion.Question);
                     return;
                 }
 
-                var newPending = new PendingQuestion
-                {
-                    Question = pendingQuestion.Question,
-                    Status = null,
-                    TimeStamp = DateTime.Now,
-                    User = reciever
-                };
-
-                _dataFactory.PendingQuestionRepository.Insert(newPending);
-                _dataFactory.Commit();
-                _eventManager.QuestionAssigned(newPending);
+                SendQuestionToNewUser(pendingQuestion.Question);
             }
             catch (Exception e)
             {
                 Logger.Log.Fatal("Exception during Pass Question", e);
                 throw;
             }
+        }
 
-            
+        private bool SendQuestionToNewUser(Question question)
+        {
 
+            var reciever = _advisorLocator.GetNextInLine(question.ID);
+            if (reciever == null)
+            {
+                AllRecipientsPassed(question);
+                return false;
+            }
+
+            var newPending = new PendingQuestion
+            {
+                Question = question,
+                Status = null,
+                TimeStamp = DateTime.Now,
+                User = reciever
+            };
+
+            _dataFactory.PendingQuestionRepository.Insert(newPending);
+            _dataFactory.Commit();
+            _eventManager.QuestionAssigned(newPending);
+            return true;
+        }
+
+        private void AllRecipientsPassed(Question question)
+        {
+            question.Stopped = true;
+            _dataFactory.QuestionRepository.Update(question);
+            _dataFactory.Commit();
+            _eventManager.AllRecipientsPassed(question);
         }
 
         public void PassQuestionForUser(string email)
@@ -186,6 +202,23 @@ namespace Radvill.Advisor.Public
             }
             
 
+        }
+
+        public void AcceptAnswer(Answer answer)
+        {
+            answer.Accepted = true;
+            _dataFactory.AnswerRepository.Update(answer);
+            _dataFactory.Commit();
+            _eventManager.AnswerEvaluated(answer);
+        }
+
+        public bool DeclineAnswer(Answer answer)
+        {
+            answer.Accepted = false;
+            _dataFactory.AnswerRepository.Update(answer);
+            _dataFactory.Commit();
+            _eventManager.AnswerEvaluated(answer);
+            return SendQuestionToNewUser(answer.Question);
         }
     }
 }

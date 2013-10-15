@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\EventData\AllRecipientsPassedEvent.cs" />
+    <Compile Include="Internal\EventData\AnswerEvaluatedEvent.cs" />
     <Compile Include="Internal\EventData\AnswerStartedEvent.cs" />
     <Compile Include="Internal\EventData\AnswerSubmittedEvent.cs" />
     <Compile Include="Internal\EventData\QuestionAssignedEvent.cs" />

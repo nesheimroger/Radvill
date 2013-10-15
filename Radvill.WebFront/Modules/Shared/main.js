@@ -125,10 +125,10 @@ var Radvill = (function () {
             console.log('AllRecipientsPassed: ' + data.ID);
         });
 
-        websocket.bind('close', function() {
-            //radvill.CallApi("Socket", null, "DELETE");
+        websocket.bind('AnswerEvaluated', function (data) {
+            //TODO: Implement event logic
+            console.log('AnswerEvaluated:' + data.ID + ', ' + data.Accepted);
         });
-        
 
     };
    

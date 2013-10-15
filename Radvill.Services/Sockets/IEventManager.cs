@@ -8,5 +8,6 @@ namespace Radvill.Services.Sockets
         void AnswerStarted(PendingQuestion pendingQuestion);
         void AnswerSubmitted(Answer answer);
         void AllRecipientsPassed(Question question);
+        void AnswerEvaluated(Answer answer);
     }
 }

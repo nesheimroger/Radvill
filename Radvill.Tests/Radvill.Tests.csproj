@@ -57,8 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Advisor\AdviseManagerTests.cs" />
+    <Compile Include="Advisor\AdviseManagerTests\EvaluateAnswerTests.cs" />
+    <Compile Include="Advisor\AdviseManagerTests\GetDeadlineTests.cs" />
+    <Compile Include="Advisor\AdviseManagerTests\PassQuestionTests.cs" />
+    <Compile Include="Advisor\AdviseManagerTests\StartAnswerTests.cs" />
+    <Compile Include="Advisor\AdviseManagerTests\SubmitAnswerTests.cs" />
     <Compile Include="Advisor\AdvisorLocatorTests.cs" />
+    <Compile Include="Advisor\AdviseManagerTests\SubmitQuestionTests.cs" />
     <Compile Include="DataFactory\UserRepositoryTests.cs" />
     <Compile Include="Sockets\EventHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +121,7 @@
       <Name>Radvill.WebFront</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

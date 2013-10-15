@@ -62,5 +62,19 @@ namespace Radvill.Tests.Sockets
              //Assert
              Assert.That(result, Is.EqualTo(expectedJson));
          }
+
+         [Test]
+         public void AnswerEvaluated_ShouldReturnCorrectJson()
+         {
+             //Arrange
+             const string expectedJson = "[\"AnswerEvaluated\",{\"ID\":1,\"Accepted\":true}]";
+             var answer = new Answer { ID = 1, Accepted = true};
+
+             //Act
+             var result = SocketEvent.AnswerEvaluated(answer);
+
+             //Assert
+             Assert.That(result, Is.EqualTo(expectedJson));
+         }
     }
 }

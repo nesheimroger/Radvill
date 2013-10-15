@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Radvill.Services.Advisor;
 using Radvill.Services.DataFactory;
+using Radvill.WebAPI.Models;
 using Radvill.WebAPI.Models.Requests;
 
 namespace Radvill.WebAPI.Controllers
@@ -38,6 +39,25 @@ namespace Radvill.WebAPI.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
 
+        }
+
+        public HttpResponseMessage Put([FromBody] EvaluationDTO evaluationDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var answer = _dataFactory.AnswerRepository.GetByID(evaluationDto.ID);
+                if (answer.Question.User.Email == User.Identity.Name)
+                {
+                    if (evaluationDto.Accepted)
+                    {
+                        _adviseManager.AcceptAnswer(answer);
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    var passedOn = _adviseManager.DeclineAnswer(answer);
+                    return Request.CreateResponse(HttpStatusCode.OK, passedOn);
+                }
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
     }
 }

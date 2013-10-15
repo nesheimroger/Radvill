@@ -37,5 +37,12 @@ namespace Radvill.Sockets.Internal
             var json = string.Format(JsonBody, "AllRecipientsPassed", JsonConvert.SerializeObject(eventData));
             return json;
         }
+
+        public static string AnswerEvaluated(Answer answer)
+        {
+            var eventData = new AnswerEvaluatedEvent(answer);
+            var json = string.Format(JsonBody, "AnswerEvaluated", JsonConvert.SerializeObject(eventData));
+            return json;
+        }
     }
 }
