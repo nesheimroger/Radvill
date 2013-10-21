@@ -89,8 +89,8 @@
     <Content Include="Modules\Notifications\Notifications.css">
       <DependentUpon>Notifications.scss</DependentUpon>
     </Content>
-    <Content Include="Modules\Notifications\Request.html" />
-    <Content Include="Modules\Notifications\Respond.html" />
+    <Content Include="Modules\Notifications\RequestReceived.html" />
+    <Content Include="Modules\Notifications\ResponseSent.html" />
     <Content Include="Modules\Profile\Profile.css">
       <DependentUpon>Profile.scss</DependentUpon>
     </Content>
@@ -136,10 +136,10 @@
     <Content Include="Modules\Scores\Scores.scss" />
     <Content Include="Modules\Info\Info.scss" />
     <Content Include="Modules\Requests\Requests.Current.js" />
-    <Content Include="Modules\Notifications\Notifications.Request.js" />
+    <Content Include="Modules\Notifications\Notifications.RequestReceived.js" />
     <Content Include="Modules\Notifications\Notifications.scss" />
     <Content Include="Modules\Respond\Respond.scss" />
-    <Content Include="Modules\Notifications\Notifications.Respond.js" />
+    <Content Include="Modules\Notifications\Notifications.ResponseSent.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

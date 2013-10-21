@@ -22,7 +22,7 @@
             var postData = $(this).serialize();
             Radvill.Requests.Current.SubmitAnswer(postData, function (data) {
                 Radvill.SwitchModule("Requests");
-                Radvill.Notifications.Respond.Show();
+                Radvill.Notifications.ResponseSent.Show();
             });
             return false;
         });

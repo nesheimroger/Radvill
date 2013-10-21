@@ -2,8 +2,8 @@
     var notifications = {};
 
     notifications.Initialize = function() {
-        notifications.Request.Initialize();
-        notifications.Respond.Initialize();
+        notifications.RequestReceived.Initialize();
+        notifications.ResponseSent.Initialize();
     };
 
     return notifications;

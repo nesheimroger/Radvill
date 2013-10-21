@@ -13,9 +13,9 @@
             $('.timer').text(e.remaining);
         });
 
-        Radvill.Notifications.Request.Bind('click', function () {
+        Radvill.Notifications.RequestReceived.Bind('click', function () {
             Radvill.SwitchModule("Respond");
-            Radvill.Notifications.Request.Hide();
+            Radvill.Notifications.RequestReceived.Hide();
         });
     };
 
@@ -27,7 +27,7 @@
                 _question = data.Question;
                 _status = data.Status;
                 _category = data.Category;
-                Radvill.Notifications.Request.Show();
+                Radvill.Notifications.RequestReceived.Show();
                 startTimer(data.TimeStamp);
             }
             
@@ -66,7 +66,7 @@
 
         if (diff < 1000) {
             current.StartAnswer(false);
-            Radvill.Notifications.Request.Hide();
+            Radvill.Notifications.RequestReceived.Hide();
             _timer = '0';
         } else {
             var offset = now.getTimezoneOffset();
