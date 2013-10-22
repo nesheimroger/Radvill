@@ -111,7 +111,7 @@ var Radvill = (function () {
         
         websocket.bind('AnswerSubmitted', function (data) {
             //TODO: Implement event logic
-            console.log('AnswerSubmitted: ' + data.ID);
+            console.log('AnswerSubmitted: ' + data.AnswerID);
         });
         
         websocket.bind('AllRecipientsPassed', function (data) {

@@ -13,7 +13,7 @@
                 var html = $(template);
                 var tableBody = html.find('tbody');
                 for (var i = 0; i < data.length; i++) {
-                    tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getStatus(data[i].Status, data[i].Type) + '</td><td>' + getType(data[i].Type) + '</td><td>' + data[i].Category + '</td><td>' + data[i].TimeStamp + '</td>');
+                    tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getType(data[i].Type) + '</td><td>' + data[i].Question + '</td><td>' + getStatus(data[i].Status, data[i].Type) + '</td>');
                 }
 
                 callback(html);
@@ -52,31 +52,30 @@
         }
 
         switch (status) {
-        case 1:
-            return "Venter på rågiver";
-        case 2:
-            return "Venter på svar";
-        case 3:
-            return "Svar mottat";
-        case 4:
-            return "Svar avslått, venter på nytt svar";
-        case 5:
-            return "Alle tilgjenglige rådgivere avslått å svare, eller svar ikke godkjent";
-        case 6:
-            return "Svar godkjent";
-        default:
-            return "Ukjent status";
+            case 1:
+                return "Venter på rågiver";
+            case 2:
+                return "Venter på svar";
+            case 3:
+                return "Svar mottat";
+            case 4:
+                return "Venter på nytt svar";//"Svar avslått, venter på nytt svar";
+            case 5:
+                return "Avsluttet uten godkjent svar";//"Alle tilgjenglige rådgivere avslått å svare, eller svar ikke godkjent";
+            case 6:
+                return "Svar godkjent";
+            default:
+                return "Ukjent status";
         }
     }
 
     function getType(type)
     {
-        if (type == 1) {
-            return "Utgående";
+        if (type == 1) { //Utgående
+            return "Spørsmål";
         }
-        return "Inngående";
+        return "Svar";
     }
-    
 
     return requests;
 

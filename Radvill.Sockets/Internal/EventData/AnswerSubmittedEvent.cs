@@ -11,9 +11,11 @@ namespace Radvill.Sockets.Internal.EventData
     {
         public AnswerSubmittedEvent(Answer answer)
         {
-            ID = answer.ID;
+            AnswerID = answer.ID;
+            QuestionID = answer.Question.ID;
         }
 
-        public int ID { get; private set; }
+        public int AnswerID { get; private set; }
+        public int QuestionID { get; private set; }
     }
 }

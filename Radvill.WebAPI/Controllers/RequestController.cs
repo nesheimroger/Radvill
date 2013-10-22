@@ -44,13 +44,28 @@ namespace Radvill.WebAPI.Controllers
 
         }
 
+        //From AnswerController
+        //public HttpResponseMessage Get(int id)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var answer = _dataFactory.AnswerRepository.GetByID(id);
+        //        if (answer.Question.User.Email == User.Identity.Name || answer.User.Email == User.Identity.Name)
+        //        {
+        //            //TODO: Transform to DTO
+        //            return Request.CreateResponse(HttpStatusCode.OK);
+        //        }
+        //    }
+        //    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+        //}
+
         /// <summary>
         /// Get all questions and answers for the logged in user
         /// </summary>
         /// <returns></returns>
         public HttpResponseMessage Get(int? id = null)
         {
-
+            //TODO: Refactor and structure API parts related to questions
             if (ModelState.IsValid)
             {
 
@@ -93,7 +108,9 @@ namespace Radvill.WebAPI.Controllers
                     Status = GetStatusForAnswer(x),
                     Category = x.Question.Category.Name,
                     Type = 2,
-                    TimeStamp = x.TimeStamp
+                    TimeStamp = x.TimeStamp,
+                    Question = x.Question.Text
+                    
                 }));
 
                 requestList.AddRange(user.PendingQuestions.Where(x => x.Status == null).Select(x => new RequestDTO
