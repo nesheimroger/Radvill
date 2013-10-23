@@ -105,13 +105,11 @@ var Radvill = (function () {
         });
 
         websocket.bind('AnswerStarted', function (data) {
-            //TODO: Implement event logic
-            console.log('AnswerStarted: ' + data.ID);
+            Radvill.Requests.AnswerStarted(data.ID);
         });
         
         websocket.bind('AnswerSubmitted', function (data) {
-            //TODO: Implement event logic
-            console.log('AnswerSubmitted: ' + data.AnswerID);
+            Radvill.Requests.AnswerReceived(data.QuestionID);
         });
         
         websocket.bind('AllRecipientsPassed', function (data) {

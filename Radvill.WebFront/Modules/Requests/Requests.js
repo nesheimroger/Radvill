@@ -13,7 +13,7 @@
                 var html = $(template);
                 var tableBody = html.find('tbody');
                 for (var i = 0; i < data.length; i++) {
-                    tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getType(data[i].Type) + '</td><td>' + data[i].Question + '</td><td>' + getStatus(data[i].Status, data[i].Type) + '</td>');
+                    tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getType(data[i].Type) + '</td><td>' + data[i].Question + '</td><td class="status">' + getStatus(data[i].Status, data[i].Type) + '</td>');
                 }
 
                 callback(html);
@@ -22,6 +22,15 @@
             }
 
         });
+    };
+
+    requests.AnswerReceived = function(questionid) {
+        Radvill.Notifications.AnswerReceived.Show();
+        $(".requests [data-id=" + questionid + "] .status").text(getStatus(3, 1));
+    };
+
+    requests.AnswerStarted = function(questionid) {
+        $(".requests [data-id=" + questionid + "] .status").text(getStatus(2, 1));
     };
 
     function getStatus(status, type) {
@@ -57,7 +66,7 @@
             case 2:
                 return "Venter på svar";
             case 3:
-                return "Svar mottat";
+                return "Svar mottatt";
             case 4:
                 return "Venter på nytt svar";//"Svar avslått, venter på nytt svar";
             case 5:

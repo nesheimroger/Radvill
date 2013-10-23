@@ -16,7 +16,7 @@
         $('#notifications').append(_responseSent);
         setTimeout(function() {
             hide();
-        }, 00);
+        }, 3500);
     };
 
     function hide() {
