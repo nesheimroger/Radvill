@@ -12,9 +12,10 @@ SQL Express 2012 with tools (http://www.microsoft.com/en-us/download/details.asp
  - Instance Name : SQLEXPRESS
  - Set up mixed mode authentication (password utv+01)
  
-IIS:
- - http://www.iis.net/learn/install/installing-iis-7/installing-iis-on-windows-vista-and-windows-7
+IIS8 (Express):
+ - http://www.iis.net/learn/install/installing-iis-7/installing-iis-on-windows-vista-and-windows-7 (IIS7 guide, but pretty much the same)
  - Basic authentication is needed
+ - If you are on not on windows 8 you have to use IIS8 Express to get support for websockets. In this case the urls in the config have to be changed for ajax and cors to work
 
 Git: 
  - http://git-scm.com/
