@@ -43,7 +43,7 @@ namespace Radvill.WebAPI.Controllers
                 
             }
 
-            return Request.CreateResponse(HttpStatusCode.InternalServerError, "An error occured");
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
 
         }
 

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Radvill.WebAPI.Models.Requests
+namespace Radvill.WebAPI.Models.Advise
 {
-    public class NewRequestDTO
+    public class SubmitQuestionDTO
     {
         [Required]
         public int CategoryID { get; set; }

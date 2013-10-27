@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Radvill.Services.DataFactory;
 using Radvill.WebAPI.Models;
+using Radvill.WebAPI.Models.HTML;
 
 namespace Radvill.WebAPI.Controllers
 {

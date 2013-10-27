@@ -25,23 +25,29 @@ namespace Radvill.WebAPI.Controllers
         /// </summary>
         /// <param name="loginDto">Login credentials</param>
         /// <returns>True / False</returns>
-        public bool Post([FromBody] LoginDTO loginDto)
+        public HttpResponseMessage Post([FromBody] LoginDTO loginDto)
         {
             if (_authenticationService.VerifyCredentials(loginDto.Email, loginDto.Password))
             {
                 FormsAuthentication.SetAuthCookie(loginDto.Email, true);
-                return true;
+                return Request.CreateResponse(true);
             }
-            return false;
+            return Request.CreateResponse(false);
         }
 
         /// <summary>
         /// Returns wheter or not a user is authenticated
         /// </summary>
         /// <returns>True / False</returns>
-        public bool Get()
+        public HttpResponseMessage Get()
         {
-            return User.Identity.IsAuthenticated;
+            return Request.CreateResponse(User.Identity.IsAuthenticated);
+        }
+
+        public HttpResponseMessage Delete()
+        {
+            //TODO: Implement logout.
+            throw new NotImplementedException();
         }
     }
 }

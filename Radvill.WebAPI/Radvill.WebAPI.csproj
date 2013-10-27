@@ -125,22 +125,26 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\AnswerController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\SocketController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
-    <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\EvaluationDTO.cs" />
-    <Compile Include="Models\HtmlOptionDTO.cs" />
+    <Compile Include="Models\Advise\AnswerDTO.cs" />
+    <Compile Include="Models\Advise\GetAnswerDTO.cs" />
+    <Compile Include="Models\Advise\GetRequestDTO.cs" />
+    <Compile Include="Models\Advise\SubmitEvaluationDTO.cs" />
+    <Compile Include="Models\HTML\HtmlOptionDTO.cs" />
     <Compile Include="Models\Auth\LoginDTO.cs" />
     <Compile Include="Models\Auth\RegisterDTO.cs" />
     <Compile Include="Models\Profile\ProfileDTO.cs" />
-    <Compile Include="Models\Requests\AnswerDTO.cs" />
-    <Compile Include="Models\Requests\NewRequestDTO.cs" />
-    <Compile Include="Models\Requests\RequestDTO.cs" />
-    <Compile Include="Models\Requests\RespondDTO.cs" />
+    <Compile Include="Models\Advise\SubmitAnswerDTO.cs" />
+    <Compile Include="Models\Advise\SubmitQuestionDTO.cs" />
+    <Compile Include="Models\Advise\GetQuestionDTO.cs" />
+    <Compile Include="Models\Advise\PutRequestDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
