@@ -47,7 +47,7 @@ namespace Radvill.WebAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
 
             }
-            return Request.CreateResponse(HttpStatusCode.InternalServerError, "ModelState invalid");
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
 
         }
     }

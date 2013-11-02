@@ -30,7 +30,7 @@
 
     respond.PopulateTemplate = function(template, callback) {
         var html = $(template);
-        html.find('input[name=PendingRequestID]').val(Radvill.Requests.Current.GetId());
+        html.find('input[name=RequestID]').val(Radvill.Requests.Current.GetId());
         html.find('.category').text(Radvill.Requests.Current.GetCategory());
         html.find('.question').text(Radvill.Requests.Current.GetQuestion());
         html.find('.step2').hide();

@@ -80,28 +80,34 @@ var Radvill = (function () {
     };
     
     radvill.CallApi = function (url, data, method, callback) {
-        $.ajax({
-            url: apiUrl + url,
-            data: data,
-            method: method,
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true
-        }).done(function (result) {
+        var deffered = $.Deferred();
+        $.when(
+            $.ajax({
+                url: apiUrl + url,
+                data: data,
+                method: method,
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true
+            })
+        ).done(function (result) {
             if (callback) {
                 callback(result);
             }
+            deffered.resolve();
 
         }).fail(function () {
+            deffered.reject();
             radvill.UnknownError();
         });
+        return deffered.promise();
     };
 
     radvill.InitializeSocket = function() {
         var websocket = new FancyWebSocket(wsUrl);
         websocket.bind('QuestionAssigned', function (data) {
-            Radvill.Requests.Current.Set(data.ID);
+            Radvill.Requests.Current.Notify();
         });
 
         websocket.bind('AnswerStarted', function (data) {

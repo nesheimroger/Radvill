@@ -6,8 +6,6 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Microsoft.Web.WebSockets;
-using Radvill.Services.Advisor;
-using Radvill.Services.DataFactory;
 using Radvill.Services.Sockets;
 
 namespace Radvill.WebAPI.Controllers

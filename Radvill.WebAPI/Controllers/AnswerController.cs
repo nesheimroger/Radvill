@@ -7,7 +7,7 @@ using System.Web.Http;
 using Radvill.Services.Advisor;
 using Radvill.Services.DataFactory;
 using Radvill.WebAPI.Models;
-using Radvill.WebAPI.Models.Requests;
+using Radvill.WebAPI.Models.Advise;
 
 namespace Radvill.WebAPI.Controllers
 {
@@ -23,29 +23,60 @@ namespace Radvill.WebAPI.Controllers
         }
 
 
-        public HttpResponseMessage Post([FromBody] AnswerDTO AnswerDto)
+        public HttpResponseMessage Get()
+        {
+            var user = _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
+            var answers = user.Answers.Select(x => new GetAnswerDTO
+                {
+                    ID = x.ID,
+                    Accepted = x.Accepted,
+                    Answer = x.Text,
+                    Category = x.Question.Category.Name,
+                    Question = x.Question.Text
+                });
+
+            return Request.CreateResponse(HttpStatusCode.OK, answers);
+        }
+
+        public HttpResponseMessage Get(int id)
         {
             if (ModelState.IsValid)
             {
-                var pending = _dataFactory.PendingQuestionRepository.GetByID(AnswerDto.PendingRequestID);
-                if (pending.User.Email == User.Identity.Name)
+                var answer = _dataFactory.AnswerRepository.GetByID(id);
+                if (answer.User.Email == User.Identity.Name)
                 {
-                    if (_adviseManager.SubmitAnswer(pending, AnswerDto.Answer))
-                    {
-                        return Request.CreateResponse(HttpStatusCode.Created);
-                    }
-                    
+                    var answerDto = new GetAnswerDTO
+                        {
+                            ID = answer.ID,
+                            Accepted = answer.Accepted,
+                            Category = answer.Question.Category.Name,
+                            Answer = answer.Text,
+                            Question = answer.Question.Text
+                        };
+                    return Request.CreateResponse(HttpStatusCode.OK, answerDto);
                 }
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
-
         }
 
-        public HttpResponseMessage Put([FromBody] EvaluationDTO evaluationDto)
+        public HttpResponseMessage Post([FromBody] SubmitAnswerDTO answerDto)
         {
             if (ModelState.IsValid)
             {
-                var answer = _dataFactory.AnswerRepository.GetByID(evaluationDto.ID);
+                var pending = _dataFactory.PendingQuestionRepository.GetByID(answerDto.RequestID);
+                if (pending.User.Email == User.Identity.Name && _adviseManager.SubmitAnswer(pending, answerDto.Answer))
+                {
+                    return Request.CreateResponse(HttpStatusCode.Created);                 
+                }
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
+        }
+
+        public HttpResponseMessage Put([FromBody] SubmitEvaluationDTO evaluationDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var answer = _dataFactory.AnswerRepository.GetByID(evaluationDto.AnswerID);
                 if (answer.Question.User.Email == User.Identity.Name)
                 {
                     if (evaluationDto.Accepted)
@@ -53,8 +84,8 @@ namespace Radvill.WebAPI.Controllers
                         _adviseManager.AcceptAnswer(answer);
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }
-                    var passedOn = _adviseManager.DeclineAnswer(answer);
-                    return Request.CreateResponse(HttpStatusCode.OK, passedOn);
+                    var passedToSomeoneElse = _adviseManager.DeclineAnswer(answer);
+                    return Request.CreateResponse(HttpStatusCode.OK, passedToSomeoneElse);
                 }
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
