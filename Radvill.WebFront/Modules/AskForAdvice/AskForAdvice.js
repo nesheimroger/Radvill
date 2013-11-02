@@ -11,7 +11,7 @@
         $(document).on('submit', '#askForAdviceForm', function (event) {
             event.preventDefault();
             var postData = $(this).serialize();
-            Radvill.CallApi("Request", postData, "POST", function (success) {
+            Radvill.CallApi("Question", postData, "POST", function (success) {
                 if (success) {
                     Radvill.SwitchModule("Requests");
                 } else {

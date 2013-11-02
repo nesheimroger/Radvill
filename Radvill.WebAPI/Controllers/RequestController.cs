@@ -24,8 +24,7 @@ namespace Radvill.WebAPI.Controllers
 
         public HttpResponseMessage Get()
         {
-            var user = _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
-            var currentRequest = _dataFactory.PendingQuestionRepository.GetCurrentByUser(user.ID);
+            var currentRequest = _dataFactory.PendingQuestionRepository.GetCurrentByUser(User.Identity.Name);
             if (currentRequest != null)
             {
                 var requestDto = new GetRequestDTO
@@ -33,10 +32,10 @@ namespace Radvill.WebAPI.Controllers
                         ID = currentRequest.ID,
                         Question = currentRequest.Question.Text,
                         StartAnswer = currentRequest.Status,
-                        DeadLine = _adviseManager.GetDeadline(currentRequest)
+                        Deadline = _adviseManager.GetDeadline(currentRequest)
                     };
 
-                Request.CreateResponse(HttpStatusCode.OK, requestDto);
+                return Request.CreateResponse(HttpStatusCode.OK, requestDto);
             }
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }

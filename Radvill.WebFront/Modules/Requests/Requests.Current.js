@@ -19,24 +19,22 @@
         });
     };
 
-    current.Set = function (id) {
-        _pendingRequestId = id;
-        Radvill.CallApi("Request", { id: _pendingRequestId }, "GET", function (data) {
+    current.Notify = function () {
+        Radvill.CallApi("Request", null, "GET", function (data) {
             if (data != undefined) {
                 _pendingRequestId = data.ID;
                 _question = data.Question;
-                _status = data.Status;
+                _status = data.StartAnswer;
                 _category = data.Category;
                 Radvill.Notifications.RequestReceived.Show();
-                startTimer(data.TimeStamp);
+                startTimer(data.Deadline);
             }
-            
         });
     };
 
     current.StartAnswer = function (start, callback) {
         clearTimeout(_timerId);
-        Radvill.CallApi("Request", { id: _pendingRequestId, startAnswer: start }, "PUT", function (deadline) {
+        Radvill.CallApi("Request", { RequestId: _pendingRequestId, StartAnswer: start }, "PUT", function (deadline) {
             if (start) {
                 startTimer(deadline);
             }
@@ -60,7 +58,7 @@
 
     function startTimer(deadline) {
         var now = new Date();
-        var deadlineDate = new Date(deadline+ '+02:00');
+        var deadlineDate = new Date(deadline);
 
         var diff = deadlineDate.getTime() - now.getTime();
 

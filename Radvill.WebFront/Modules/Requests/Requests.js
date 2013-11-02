@@ -3,25 +3,36 @@
 
     requests.Initialize = function () {
         requests.Current.Initialize();
+        
+        
     };
 
     requests.PopulateTemplate = function (template, callback) {
+        var questions, answers;
 
-
-        Radvill.CallApi("Request", null, "GET", function(data) {
-            if (data.length > 0) {
-                var html = $(template);
-                var tableBody = html.find('tbody');
-                for (var i = 0; i < data.length; i++) {
-                    tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getType(data[i].Type) + '</td><td>' + data[i].Question + '</td><td class="status">' + getStatus(data[i].Status, data[i].Type) + '</td>');
-                }
-
-                callback(html);
-            } else {
-                callback('<p>Du har ingen forespørsler.</p>');
-            }
-
+        $.when(
+            Radvill.CallApi("Question", null, "GET", function(data) {
+                questions = data;
+            }),
+            Radvill.CallApi("Answer", null, "GET", function(data) {
+                answers = data;
+            })
+        ).then(function() {
+            var html = $(template);
+            html = populateTable(html, "#questions tbody", questions);
+            html = populateTable(html, "#answers tbody", answers);
+            callback(html);
         });
+
+        function populateTable(html, selector, data) {
+            var tableBody = html.find(selector);
+            for (var i = 0; i < data.length; i++) {
+                tableBody.append('<tr data-id="' + data[i].ID + '"><td>' + getTime(data[i].TimeStamp) + '</td><td>' + data[i].Question + '</td><td class="status">' + getStatus(data[i].Status, "question") + '</td>');
+            }
+            return html;
+        }
+
+
     };
 
     requests.AnswerReceived = function(questionid) {
@@ -34,20 +45,8 @@
     };
 
     function getStatus(status, type) {
-        if (type == 3) {
-            switch (status) {
-                case 1:
-                    return "Venter på deg";
-                case 2:
-                    return "Avslått å svare"; //Not implmented in API
-                case 3:
-                    return "Svar påbegynt"; //Not implmented in API
-                default:
-                    return "Ukjent status";
-            }
-        }
 
-        if (type == 2) {
+        if (type == "answer") {
             switch (status) {
                 case 1:
                     return "Svar sendt";
@@ -77,15 +76,20 @@
                 return "Ukjent status";
         }
     }
+    
+    function getTime(timestamp) {
+        var date = new Date(timestamp + '+02:00');
+        return date.getDate().padLeft() + '.' + (date.getMonth() + 1).padLeft() + '.' + date.getFullYear() + " " + date.getHours().padLeft() + ":" + date.getMinutes().padLeft();
 
-    function getType(type)
-    {
-        if (type == 1) { //Utgående
-            return "Spørsmål";
-        }
-        return "Svar";
+        
     }
+    
+    Number.prototype.padLeft = function (base, chr) {
+        var len = (String(base || 10).length - String(this).length) + 1;
+        return len > 0 ? new Array(len).join(chr || '0') + this : this;
+    };
 
     return requests;
+    
 
 })();

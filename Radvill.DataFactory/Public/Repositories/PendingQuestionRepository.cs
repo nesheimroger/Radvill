@@ -17,9 +17,9 @@ namespace Radvill.DataFactory.Public.Repositories
             return Get(x => x.Question.ID == id).ToList();
         }
 
-        public PendingQuestion GetCurrentByUser(int id)
+        public PendingQuestion GetCurrentByUser(string email)
         {
-            return Get(x => x.User.ID == id && x.Status == null).FirstOrDefault();
+            return Get(x => x.User.Email == email && x.Status == null).FirstOrDefault();
         }
     }
 }

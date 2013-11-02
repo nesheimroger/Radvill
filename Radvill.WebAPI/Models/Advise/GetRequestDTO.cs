@@ -6,7 +6,8 @@ namespace Radvill.WebAPI.Models.Advise
     {
         public int ID { get; set; }
         public string Question { get; set; }
-        public DateTime DeadLine { get; set; }
+        public string Category { get; set; }
+        public DateTime Deadline { get; set; }
         public bool? StartAnswer { get; set; }
     }
 }
