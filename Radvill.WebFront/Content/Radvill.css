@@ -1,0 +1,16 @@
+.logo a {
+  color: #000; }
+  .logo a:hover {
+    text-decoration: none;
+    color: #000; }
+
+.timer {
+  display: inline-block;
+  margin-right: 10px; }
+
+#notifications:hover {
+  cursor: pointer; }
+
+.home .nav-primary {
+  border-bottom: 1px solid #ccc; }
+

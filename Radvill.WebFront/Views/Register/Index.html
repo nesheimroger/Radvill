@@ -1,0 +1,25 @@
+﻿<section class="register" data-bind="with: Radvill.Models.RegisterModel">
+    <form role="form" id="registerForm" action="javascript: Radvill.Controllers.RegisterController.Register()">
+        
+        <fieldset>
+            <legend>Registering</legend>
+            <div class="form-group">
+                <label class="control-label" for="displayName">Visningsnavn</label>
+                <input data-bind="value: DisplayName" type="text" class="form-control" placeholder="Visningsnavn" id="displayName"required>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="email">E-Post</label>
+                <input data-bind="value: Email" type="Email" class="form-control" placeholder="Epost" id="email" required>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="password">Passord</label>
+                <input data-bind="value: Password" type="password" class="form-control" id="password" placeholder="Passord" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <span>Har du bruker? <a href="javascript:Radvill.Controllers.LoginController.Index()">Gå til login</a></span>
+        </fieldset>
+
+        
+    </form>
+
+</section>
