@@ -1,0 +1,21 @@
+﻿<section>
+    <h2>Se spørsmål</h2>
+    
+    <label>Sendt inn:</label>
+    <p data-bind="text: TimeStamp"></p>
+    <label>Kategori:</label>
+    <p data-bind="text: Category"></p>
+    <label>Spørsmål:</label>
+    <p data-bind="text: Question"></p>
+    
+    <label>Svar:</label>
+    <div data-bind="foreach: Answers">
+        <div class="answer">
+            <p data-bind="text: Answer">
+            
+            </p>
+        </div>
+        
+    </div>
+
+</section>

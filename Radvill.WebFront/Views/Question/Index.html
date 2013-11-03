@@ -1,0 +1,16 @@
+﻿<section >
+    <form role="form" id="askForAdviceForm" action="javascript: Radvill.Controllers.QuestionController.Submit()">
+        <fieldset>
+            <legend>Be om råd</legend>
+            <div class="form-group">
+                <label class="control-label" for="Category">Kategori</label>
+                <select data-bind="options: Categories, optionsText: 'Name', optionsValue: 'ID', value: Category, optionsCaption: 'Velg kategori...'" name="CategoryId" id="Category" class="form-control" required></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Question">Spørsmål</label>
+                <textarea data-bind="value: Question, valueUpdate: 'afterkeydown'" class="form-control" name="Question" id="Question" maxlength="200" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send inn</button>
+        </fieldset>
+    </form>
+</section>

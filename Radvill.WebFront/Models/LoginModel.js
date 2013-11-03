@@ -1,4 +1,4 @@
-﻿Radvill.Models.LoginModel = {
-    Email: ko.observable(),
-    Password: ko.observable()
+﻿Radvill.Models.LoginModel = function () {
+    this.Email = ko.observable("");
+    this.Password = ko.observable("");
 };

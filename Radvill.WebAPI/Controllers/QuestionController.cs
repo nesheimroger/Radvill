@@ -35,9 +35,9 @@ namespace Radvill.WebAPI.Controllers
                 Question = x.Text,
                 TimeStamp = x.TimeStamp,
                 Answers = x.Answers.Select(y => new AnswerDTO{Accepted = y.Accepted, ID = y.ID, Text = y.Text})
-            }).ToList();
+            }).OrderByDescending(x => x.TimeStamp);
 
-            return Request.CreateResponse(HttpStatusCode.OK, questions.OrderByDescending(x => x.TimeStamp));
+            return Request.CreateResponse(HttpStatusCode.OK, questions);
 
         }
 

@@ -1,14 +1,17 @@
 ﻿Radvill.Controllers.LoginController = (function() {
     var loginController = {
+
         Index: function () {
-            Radvill.Controllers.View("Login", "Index", Radvill.Models.LoginModel);
+            var viewModel = new Radvill.Models.LoginModel();
+            Radvill.Controllers.View("Login", "Index", viewModel);
         },
         
         Login: function () {
-            
+
+            var viewModel = Radvill.ViewModel();
             var postdata = {
-                Email: Radvill.Models.LoginModel.Email(),
-                Password: Radvill.Models.LoginModel.Password(),
+                Email: viewModel.Email(),
+                Password: viewModel.Password(),
             };
 
             Radvill.CallApi("Login", postdata, "POST", function (successfull) {

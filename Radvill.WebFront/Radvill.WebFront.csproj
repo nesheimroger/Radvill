@@ -57,99 +57,58 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />-->
-    <Folder Include="Models\" />
-    <Folder Include="Templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Application\Radvill.js" />
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Radvill.css">
+      <DependentUpon>Radvill.scss</DependentUpon>
+    </Content>
+    <Content Include="Controllers\AnswerController.js" />
+    <Content Include="Controllers\HomeController.js" />
+    <Content Include="Controllers\LoginController.js" />
+    <Content Include="Controllers\QuestionController.js" />
+    <Content Include="Controllers\RegisterController.js" />
+    <Content Include="Controllers\RequestsController.js" />
     <Content Include="index.html" />
-    <Content Include="Modules\AskForAdvice\AskForAdvice.css">
-      <DependentUpon>AskForAdvice.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\AskForAdvice\AskForAdvice.html" />
-    <Content Include="Modules\AskForAdvice\AskForAdvice.js" />
-    <Content Include="Modules\Home\Home.css">
-      <DependentUpon>Home.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Home\Home.html" />
-    <Content Include="Modules\Home\Home.js" />
-    <Content Include="Modules\Info\About.html" />
-    <Content Include="Modules\Info\Info.css">
-      <DependentUpon>Info.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Info\Info.js" />
-    <Content Include="Modules\Info\Policy.html" />
-    <Content Include="Modules\Login\Login.css">
-      <DependentUpon>Login.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Login\Login.html" />
-    <Content Include="Modules\Login\Login.js" />
-    <Content Include="Modules\Notifications\AnswerReceived.html" />
-    <Content Include="Modules\Notifications\Notifications.css">
-      <DependentUpon>Notifications.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Notifications\RequestReceived.html" />
-    <Content Include="Modules\Notifications\ResponseSent.html" />
-    <Content Include="Modules\Profile\Profile.css">
-      <DependentUpon>Profile.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Profile\ProfileEdit.html" />
-    <Content Include="Modules\Profile\Profile.html" />
-    <Content Include="Modules\Profile\Profile.js" />
-    <Content Include="Modules\Register\Register.css">
-      <DependentUpon>Register.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Register\Register.html" />
-    <Content Include="Modules\Register\Register.js" />
-    <Content Include="Modules\Requests\Requests.css">
-      <DependentUpon>Requests.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Requests\Requests.html" />
-    <Content Include="Modules\Requests\Requests.js" />
-    <Content Include="Modules\Respond\Respond.css">
-      <DependentUpon>Respond.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Respond\Respond.html" />
-    <Content Include="Modules\Respond\Respond.js" />
-    <Content Include="Modules\Scores\Scores.css">
-      <DependentUpon>Scores.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Scores\Scores.html" />
-    <Content Include="Modules\Scores\Scores.js" />
-    <Content Include="Modules\Shared\Main.css">
-      <DependentUpon>Main.scss</DependentUpon>
-    </Content>
-    <Content Include="Modules\Shared\Main.js" />
-    <Content Include="Modules\Notifications\Notifications.js" />
+    <Content Include="Models\AnswerModel.js" />
+    <Content Include="Models\AnswerQuestionModel.js" />
+    <Content Include="Models\CategoryModel.js" />
+    <Content Include="Models\LoginModel.js" />
+    <Content Include="Models\AskQuestionModel.js" />
+    <Content Include="Models\QuestionModel.js" />
+    <Content Include="Models\RegisterModel.js" />
+    <Content Include="Models\RequestsModel.js" />
     <Content Include="packages.config" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Modules\Login\Login.scss" />
-    <Content Include="Modules\Shared\Main.scss" />
-    <Content Include="Modules\AskForAdvice\AskForAdvice.scss" />
-    <Content Include="Modules\Home\Home.scss" />
-    <Content Include="Modules\Profile\Profile.scss" />
-    <Content Include="Modules\Register\Register.scss" />
-    <Content Include="Modules\Requests\Requests.scss" />
-    <Content Include="Modules\Scores\Scores.scss" />
-    <Content Include="Modules\Info\Info.scss" />
-    <Content Include="Modules\Requests\Requests.Current.js" />
-    <Content Include="Modules\Notifications\Notifications.RequestReceived.js" />
-    <Content Include="Modules\Notifications\Notifications.scss" />
-    <Content Include="Modules\Respond\Respond.scss" />
-    <Content Include="Modules\Notifications\Notifications.ResponseSent.js" />
-    <Content Include="Modules\Notifications\Notifications.AnswerReceived.js" />
+    <Content Include="Content\Radvill.scss" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\FancyWebSocket.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
+    <Content Include="Views\Answer\Index.html" />
+    <Content Include="Views\Answer\View.html" />
+    <Content Include="Views\Home\Index.html" />
+    <Content Include="Views\Login\Index.html" />
+    <Content Include="Views\Notifications\AnswerEvaluated.html" />
+    <Content Include="Views\Notifications\AnswerReceived.html" />
+    <Content Include="Views\Notifications\QuestionStopped.html" />
+    <Content Include="Views\Question\Index.html" />
+    <Content Include="Views\Question\View.html" />
+    <Content Include="Views\Register\Index.html" />
+    <Content Include="Views\Requests\Index.html" />
+    <Content Include="Views\Notifications\Generic.html" />
+    <Content Include="Views\Notifications\QuestionReceived.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

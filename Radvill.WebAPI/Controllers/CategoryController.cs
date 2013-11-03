@@ -7,7 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Radvill.Services.DataFactory;
 using Radvill.WebAPI.Models;
-using Radvill.WebAPI.Models.HTML;
+using Radvill.WebAPI.Models.Advise;
 
 namespace Radvill.WebAPI.Controllers
 {
@@ -26,7 +26,7 @@ namespace Radvill.WebAPI.Controllers
         public HttpResponseMessage Get()
         {
             var categories = _dataFactory.CategoryRepository.GetAll()
-                 .Select(x => new HtmlOptionDTO {Value = x.ID, Text = x.Name});
+                 .Select(x => new CategoryDTO{ ID = x.ID, Name = x.Name});
 
             return Request.CreateResponse(HttpStatusCode.OK, categories);
         }

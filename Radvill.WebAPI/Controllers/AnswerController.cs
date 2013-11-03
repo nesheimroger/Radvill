@@ -32,8 +32,9 @@ namespace Radvill.WebAPI.Controllers
                     Accepted = x.Accepted,
                     Answer = x.Text,
                     Category = x.Question.Category.Name,
-                    Question = x.Question.Text
-                });
+                    Question = x.Question.Text,
+                    TimeStamp = x.TimeStamp
+                }).OrderByDescending(x => x.TimeStamp);
 
             return Request.CreateResponse(HttpStatusCode.OK, answers);
         }

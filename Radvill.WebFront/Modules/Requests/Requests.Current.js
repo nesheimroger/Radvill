@@ -94,7 +94,7 @@
                 startTimer(deadline);
             }, 1000);
         }
-        
+
         $(document).trigger({
             type: "timer-updated",
             remaining: _timer

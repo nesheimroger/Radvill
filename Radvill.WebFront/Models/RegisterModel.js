@@ -1,5 +1,5 @@
-﻿Radvill.Models.RegisterModel = {
-    Email: ko.observable(),
-    Password: ko.observable(),
-    DisplayName: ko.observable()
-}
+﻿Radvill.Models.RegisterModel = function () {
+    this.Email = ko.observable("");
+    this.Password = ko.observable("");
+    this.DisplayName = ko.observable("");
+};

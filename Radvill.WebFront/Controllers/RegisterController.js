@@ -1,14 +1,19 @@
 ﻿Radvill.Controllers.RegisterController = (function() {
     var registerController = {
-        Index: function() {
-            Radvill.Controllers.View("Register", "Index");
+
+        Index: function () {
+            var model = new Radvill.Models.RegisterModel();
+            Radvill.Controllers.View("Register", "Index", model);
         },
         
-        Register: function() {
+        Register: function () {
+
+            var viewModel = Radvill.ViewModel();
+            
             var postData = {
-                DisplayName: Radvill.Models.RegisterModel.DisplayName(),
-                Email: Radvill.Models.RegisterModel.Email(),
-                Password: Radvill.Models.RegisterModel.Password()
+                DisplayName: viewModel.DisplayName(),
+                Email: viewModel.Email(),
+                Password: viewModel.Password()
             };
 
             Radvill.CallApi("Register", postData, "Post", function(isSuccessfull) {

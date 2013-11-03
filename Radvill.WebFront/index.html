@@ -19,7 +19,7 @@
             </header>
             <section class="row">
                 <div class="col-xs-12" id="notifications"></div>
-                <div class="col-xs-12" id="content"></div>
+                <div class="col-xs-12" id="content" data-bind="with: Radvill.ViewModel"></div>
             </section>
         </div>
 
@@ -35,12 +35,21 @@
         <!-- MAIN -->
         <script src="Application/Radvill.js"></script>
         <!-- Controllers -->
+        <script src="Controllers/AnswerController.js"></script>
         <script src="Controllers/HomeController.js"></script>
         <script src="Controllers/LoginController.js"></script>
         <script src="Controllers/RegisterController.js"></script>
+        <script src="Controllers/QuestionController.js"></script>
+        <script src="Controllers/RequestsController.js"></script>
         <!-- Models -->
+        <script src="Models/AnswerModel.js"></script>
+        <script src="Models/AnswerQuestionModel.js"></script>
+        <script src="Models/AskQuestionModel.js"></script>
+        <script src="Models/CategoryModel.js"></script>
         <script src="Models/LoginModel.js"></script>
+        <script src="Models/QuestionModel.js"></script>
         <script src="Models/RegisterModel.js"></script>
+        <script src="Models/RequestsModel.js"></script>
         
     </body>
 </html>

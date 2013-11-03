@@ -1,0 +1,49 @@
+﻿<section>
+    <h2>Postkasse</h2>
+    
+    <nav>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#questions" data-toggle="tab">Mine spørsmål</a></li>
+            <li><a href="#answers" data-toggle="tab">Mine svar</a></li>
+        </ul>
+    </nav>
+    
+    <div class="tab-content">
+        <div id="questions" class="tab-pane active">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Klokkeslett</th>
+                        <th>Spørsmål</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: Questions">
+                    <tr data-bind="click: ViewDetails">
+                        <td data-bind="text: TimeStamp"></td>
+                        <td data-bind="text: Question"></td>
+                        <td data-bind="text: Status"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="answers" class="tab-pane">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Klokkeslett</th>
+                        <th>Spørsmål</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: Answers">
+                    <tr data-bind="click: ViewDetails">
+                        <td data-bind="text: TimeStamp"></td>
+                        <td data-bind="text: Question"></td>
+                        <td data-bind="text: Status"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

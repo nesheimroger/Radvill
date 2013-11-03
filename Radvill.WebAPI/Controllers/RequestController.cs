@@ -32,7 +32,8 @@ namespace Radvill.WebAPI.Controllers
                         ID = currentRequest.ID,
                         Question = currentRequest.Question.Text,
                         StartAnswer = currentRequest.Status,
-                        Deadline = _adviseManager.GetDeadline(currentRequest)
+                        Deadline = _adviseManager.GetDeadline(currentRequest),
+                        Category = currentRequest.Question.Category.Name
                     };
 
                 return Request.CreateResponse(HttpStatusCode.OK, requestDto);

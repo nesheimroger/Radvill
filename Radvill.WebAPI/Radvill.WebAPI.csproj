@@ -134,10 +134,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Advise\AnswerDTO.cs" />
+    <Compile Include="Models\Advise\CategoryDTO.cs" />
     <Compile Include="Models\Advise\GetAnswerDTO.cs" />
     <Compile Include="Models\Advise\GetRequestDTO.cs" />
     <Compile Include="Models\Advise\SubmitEvaluationDTO.cs" />
-    <Compile Include="Models\HTML\HtmlOptionDTO.cs" />
     <Compile Include="Models\Auth\LoginDTO.cs" />
     <Compile Include="Models\Auth\RegisterDTO.cs" />
     <Compile Include="Models\Profile\ProfileDTO.cs" />
