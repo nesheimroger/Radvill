@@ -1,0 +1,43 @@
+.logo{
+	a{
+		color: #000;
+		&:hover{
+			text-decoration: none;
+			color: #000;
+		}
+	}
+}
+
+.timer{
+	display: inline-block;
+	margin-right: 10px;
+}
+
+
+#notifications {
+	&:hover{
+		cursor: pointer;
+	}
+
+	.requestNotification{
+	
+	}
+}
+
+.home{
+	.nav-primary{
+		border-bottom: 1px solid #ccc;
+	}
+
+	.nav-secondary{
+	
+	}
+}
+
+.answer{
+	border-top: 1px solid #000;
+
+	&:first-child{
+		border-top: none;
+	}
+}

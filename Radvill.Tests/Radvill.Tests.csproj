@@ -65,6 +65,7 @@
     <Compile Include="Advisor\AdvisorLocatorTests.cs" />
     <Compile Include="Advisor\AdviseManagerTests\SubmitQuestionTests.cs" />
     <Compile Include="DataFactory\UserRepositoryTests.cs" />
+    <Compile Include="Scores\ScoreKeeperTests.cs" />
     <Compile Include="Sockets\EventHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AuthenticationServiceTests.cs" />

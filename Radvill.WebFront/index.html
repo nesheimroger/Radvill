@@ -7,55 +7,54 @@
     <link rel="stylesheet" href="Content/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="Content/bootstrap/bootstrap-theme.min.css"/>
     <!-- MAIN-->
-    <link rel="stylesheet" href="Modules/Shared/main.css"/>
+    <link rel="stylesheet" href="Content/Radvill.css"/>
     <!-- MODULES -->
-    <link rel="stylesheet" href="Modules/AskForAdvice/AskForAdvice.css"/>
-    <link rel="stylesheet" href="Modules/Home/Home.css"/>
-    <link rel="stylesheet" href="Modules/Info/Info.css"/>
-    <link rel="stylesheet" href="Modules/Login/Login.css"/>
-    <link rel="stylesheet" href="Modules/Notifications/Notifications.css"/>
-    <link rel="stylesheet" href="Modules/Profile/Profile.css"/>
-    <link rel="stylesheet" href="Modules/Register/Register.css"/>
-    <link rel="stylesheet" href="Modules/Requests/Requests.css"/>
-    <link rel="stylesheet" href="Modules/Respond/Respond.css"/>
-    <link rel="stylesheet" href="Modules/Scores/Scores.css"/>
 </head>
     <body>
         <div class="container">
             <header class="row">
                 <div class="col-xs-12">
-                    <h1 class="logo"><a href="javascript:Radvill.SwitchModule('Home')">Rådvill</a></h1>
+                    <h1 class="logo" id="HomeLink">Rådvill</h1>
                 </div>
             </header>
             <section class="row">
                 <div class="col-xs-12" id="notifications"></div>
-                <div class="col-xs-12" id="content"></div>
+                <div class="col-xs-12" id="content" data-bind="with: Radvill.ViewModel"></div>
             </section>
         </div>
 
 
         <!-- jQuery -->
-        <script src="Scripts/jquery-1.9.1.min.js"></script>
+        <script src="Scripts/jquery-1.9.1.js"></script>
+        <!-- KnockoutJS -->
+        <script src="Scripts/knockout-3.0.0.debug.js"></script>
         <!-- FancyWebSocket -->
         <script src="Scripts/FancyWebSocket.js"></script>
         <!-- BOOSTRAP -->
         <script src="Scripts/bootstrap.min.js"></script>
         <!-- MAIN -->
-        <script src="Modules/Shared/main.js"></script>
-        <!-- MODULES -->
-        <script src="Modules/AskForAdvice/AskForAdvice.js"></script>
-        <script src="Modules/Home/Home.js"></script>
-        <script src="Modules/Info/Info.js"></script>
-        <script src="Modules/Login/Login.js"></script>
-        <script src="Modules/Notifications/Notifications.js"></script>
-        <script src="Modules/Notifications/Notifications.RequestReceived.js"></script>
-        <script src="Modules/Notifications/Notifications.ResponseSent.js"></script>
-        <script src="Modules/Notifications/Notifications.AnswerReceived.js"></script>
-        <script src="Modules/Profile/Profile.js"></script>
-        <script src="Modules/Register/Register.js"></script>
-        <script src="Modules/Requests/Requests.js"></script>
-        <script src="Modules/Requests/Requests.Current.js"></script>
-        <script src="Modules/Respond/Respond.js"></script>
-        <script src="Modules/Scores/Scores.js"></script>
+        <script src="Application/Radvill.js"></script>
+        <!-- Controllers -->
+        <script src="Controllers/AnswerController.js"></script>
+        <script src="Controllers/HighscoresController.js"></script>
+        <script src="Controllers/HomeController.js"></script>
+        <script src="Controllers/InfoController.js"></script>
+        <script src="Controllers/LoginController.js"></script>
+        <script src="Controllers/ProfileController.js"></script>
+        <script src="Controllers/RegisterController.js"></script>
+        <script src="Controllers/QuestionController.js"></script>
+        <script src="Controllers/RequestsController.js"></script>
+        <!-- Models -->
+        <script src="Models/AnswerModel.js"></script>
+        <script src="Models/AnswerQuestionModel.js"></script>
+        <script src="Models/AskQuestionModel.js"></script>
+        <script src="Models/CategoryModel.js"></script>
+        <script src="Models/HighscoresModel.js"></script>
+        <script src="Models/LoginModel.js"></script>
+        <script src="Models/ProfileModel.js"></script>
+        <script src="Models/QuestionModel.js"></script>
+        <script src="Models/RegisterModel.js"></script>
+        <script src="Models/RequestsModel.js"></script>
+        
     </body>
 </html>

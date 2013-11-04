@@ -1,4 +1,6 @@
-﻿namespace Radvill.WebAPI.Models.Advise
+﻿using System;
+
+namespace Radvill.WebAPI.Models.Advise
 {
     public class GetAnswerDTO
     {
@@ -7,5 +9,6 @@
         public string Question { get; set; }
         public string Answer { get; set; }
         public bool? Accepted { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

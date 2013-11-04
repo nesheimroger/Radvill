@@ -1,0 +1,35 @@
+﻿<section>
+    <h2>Se spørsmål</h2>
+    
+    <label>Sendt inn:</label>
+    <p data-bind="text: TimeStamp"></p>
+    <label>Kategori:</label>
+    <p data-bind="text: Category"></p>
+    <label>Spørsmål:</label>
+    <p data-bind="text: Question"></p>
+    
+    <label data-bind="if: Answers().length">Svar:</label>
+    <div data-bind="foreach: Answers">
+        <div class="answer">
+            <p data-bind="text: Answer"></p>
+            <div data-bind="ifnot: Rated">
+                <p>Godkjenner du dette svaret?</p>
+                <form>
+                    <button data-bind="click: Accept" type="button" class="btn btn-success">Ja</button>
+                    <button data-bind="click: Decline" type="button" class="btn btn-danger">Nei</button>
+                </form>
+            </div>
+            <div data-bind="if: Rated">
+                <div data-bind="if: Accepted">
+                    Godkjent
+                </div>
+                <div data-bind="ifnot: Accepted">
+                    Avslått
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+
+</section>

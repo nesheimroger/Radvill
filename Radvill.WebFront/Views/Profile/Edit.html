@@ -1,0 +1,18 @@
+﻿<section class="">
+    <form role="form" id="editProfileForm">
+        
+        <fieldset>
+            <legend>Min profil</legend>
+            <div class="form-group">
+                <label class="control-label" for="displayName">Visningsnavn</label>
+                <input data-bind="value: DisplayName" type="text" class="form-control" id="displayName" placeholder="Visningsnavn" name="DisplayName" required>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="description">Beskrivelse</label>
+                <textarea data-bind="value: Description, valueUpdate: 'afterkeydown'" name="Description" id="description" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" data-bind="click: Save">Lagre</button>
+            <a href="javascript:Radvill.Controllers.ProfileController.Index()">Avbryt</a>
+        </fieldset>
+    </form>
+</section>

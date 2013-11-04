@@ -1,0 +1,30 @@
+﻿<section>
+     <form role="form" id="respondForm" action="javascript: Radvill.Controllers.AnswerController.Submit()">
+        <fieldset>
+            <legend>Gi råd</legend>
+            <div class="form-group">
+                <label class="control-label">Kategori</label>
+                <p data-bind="text: Category"></p>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Spørsmål</label>
+                <p data-bind="text: Question"></p>
+            </div>
+            <div class="form-group">
+                <p><span class="glyphicon glyphicon-time"></span><span data-bind="text: Timer"></span></p>
+            </div>
+            <div class="form-group" data-bind="ifnot: Status">
+                <label class="control-label">Ønsker du gi råd?</label>
+                <div>
+                    <button type="button" class="btn btn-success" data-bind="click: Start">Ja</button>
+                    <button type="button" class="btn btn-danger" data-bind="click: Pass">Nei</button>
+                </div>
+            </div>
+            <div class="form-group" data-bind="if: Status">
+                <label class="control-label" for="Answer">Ditt svar</label>
+                <textarea class="form-control" name="Answer" id="Question" maxlength="200" required data-bind="value: Answer, valueUpdate: 'afterkeydown'"></textarea>
+                <button type="submit" class="btn btn-primary" data-bind="click: Submit">Send inn</button>
+            </div>
+        </fieldset>
+    </form>
+</section>

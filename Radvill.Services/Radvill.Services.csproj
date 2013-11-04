@@ -45,10 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Advisor\IAdviseManager.cs" />
+    <Compile Include="DataFactory\Repositories\IAdvisorProfileRepository.cs" />
     <Compile Include="DataFactory\Repositories\IAnswerRepository.cs" />
     <Compile Include="DataFactory\Repositories\ICategoryRepository.cs" />
     <Compile Include="DataFactory\Repositories\IPendingQuestionRepository.cs" />
     <Compile Include="DataFactory\Repositories\IQuestionRepository.cs" />
+    <Compile Include="Scores\IScoreKeeper.cs" />
     <Compile Include="Sockets\ISocketManager.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />
     <Compile Include="DataFactory\IDataFactory.cs" />

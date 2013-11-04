@@ -25,7 +25,7 @@ namespace Radvill.Tests.Sockets
          public void AnswerSubmitted_ShouldReturnCorrectJson()
          {
              //Arrange
-             const string expectedJson = "[\"AnswerSubmitted\",{\"AnswerID\":1,\"QuestionID\":1}]";
+             const string expectedJson = "[\"AnswerSubmitted\",{\"ID\":1}]";
              var answer = new Answer { ID = 1, Question = new Question{ID = 1}};
 
              //Act

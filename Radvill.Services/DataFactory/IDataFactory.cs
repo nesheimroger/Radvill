@@ -10,6 +10,7 @@ namespace Radvill.Services.DataFactory
         IQuestionRepository QuestionRepository { get; set; }
         IAnswerRepository AnswerRepository { get; set; }
         IPendingQuestionRepository PendingQuestionRepository { get; set; }
+        IAdvisorProfileRepository AdvisorProfileRepository { get; set; }
 
         void Commit();
     }
