@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Radvill.Models.UserModels;
 using Radvill.Services.DataFactory;
+using Radvill.Services.Scores;
 using Radvill.WebAPI.Models.Profile;
 
 namespace Radvill.WebAPI.Controllers
@@ -14,26 +15,29 @@ namespace Radvill.WebAPI.Controllers
     public class ProfileController : ApiController
     {
         private readonly IDataFactory _dataFactory;
+        private readonly IScoreKeeper _scoreKeeper;
 
-        public ProfileController(IDataFactory dataFactory)
+        public ProfileController(IDataFactory dataFactory, IScoreKeeper scoreKeeper)
         {
             _dataFactory = dataFactory;
+            _scoreKeeper = scoreKeeper;
         }
 
-        public HttpResponseMessage Get([FromBody]int? id)
+        public HttpResponseMessage Get()
         {
-            var user = id.HasValue 
-                ? _dataFactory.UserRepository.GetByID(id.Value) 
-                : _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
+            var user =  _dataFactory.UserRepository.GetUserByEmail(User.Identity.Name);
+            var points = _scoreKeeper.GetPointsByUser(User.Identity.Name);
 
             var dto = new ProfileDTO
                 {
                     DisplayName = user.AdvisorProfile.DisplayName,
-                    Description = user.AdvisorProfile.Description
+                    Description = user.AdvisorProfile.Description,
+                    Points = points
                 };
 
             return Request.CreateResponse(HttpStatusCode.OK, dto);
         }
+
 
         public HttpResponseMessage Put([FromBody] ProfileDTO profileDTO)
         {

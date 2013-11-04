@@ -15,16 +15,28 @@
     function addAnswerToQuestion(answer) {
         var answerModel = {
             ID: answer.ID,
-            Status: ko.observable(answer.Status),
-            Answer: answer.Text
+            Accepted: ko.observable(answer.Accepted),
+            Answer: answer.Text,
+            Rated: ko.observable(function() {
+                return answer.Accepted != null;
+            }())
         };
 
         answerModel.Accept = function() {
-
+            Radvill.CallApi("Answer", { AnswerID: answerModel.ID, Accepted: true }, "PUT", function() {
+                answerModel.Rated(true);
+                answerModel.Accepted(true);
+            });
         };
 
         answerModel.Decline = function() {
-
+            Radvill.CallApi("Answer", { AnswerID: answerModel.ID, Accepted: true }, "PUT", function (passedOn) {
+                answerModel.Rated(false);
+                answerModel.Status(false);
+                if (passedOn) {
+                    Radvill.Notifications.Generic("Ditt spørsmål har blitt sendt videre");
+                }
+            });
         };
 
         questionModel.Answers.push(answerModel);

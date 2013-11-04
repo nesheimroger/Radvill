@@ -14,7 +14,8 @@ namespace Radvill.DataFactory.Public
             ICategoryRepository categoryRepository, 
             IQuestionRepository questionRepository, 
             IAnswerRepository answerRepository, 
-            IPendingQuestionRepository pendingQuestionRepository)
+            IPendingQuestionRepository pendingQuestionRepository,
+            IAdvisorProfileRepository advisorProfileRepository)
         {
             _context = context;
             UserRepository = userRepository;
@@ -22,6 +23,7 @@ namespace Radvill.DataFactory.Public
             QuestionRepository = questionRepository;
             AnswerRepository = answerRepository;
             PendingQuestionRepository = pendingQuestionRepository;
+            AdvisorProfileRepository = advisorProfileRepository;
         }
         
         public IUserRepository UserRepository { get; set; }
@@ -29,6 +31,7 @@ namespace Radvill.DataFactory.Public
         public IQuestionRepository QuestionRepository { get; set; }
         public IAnswerRepository AnswerRepository { get; set; }
         public IPendingQuestionRepository PendingQuestionRepository { get; set; }
+        public IAdvisorProfileRepository AdvisorProfileRepository { get; set; }
 
 
         public void Dispose()

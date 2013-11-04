@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
+using Radvill.Advisor.Public;
 using Radvill.Bootstrap.DependencyResolvers;
-using Radvill.Sockets.Public;
 using StructureMap;
 
 namespace Radvill.Bootstrap
@@ -16,7 +16,8 @@ namespace Radvill.Bootstrap
                 y.AssemblyContainingType<DataFactory.Public.DataFactory>();
                 y.AssemblyContainingType<Security.Public.AuthenticationService>();
                 y.AssemblyContainingType<Advisor.Public.AdviseManager>();
-                y.AssemblyContainingType<EventManager>();
+                y.AssemblyContainingType<Sockets.Public.EventManager>();
+                y.AssemblyContainingType<ScoreKeeper>();
                 y.LookForRegistries();
                 y.WithDefaultConventions();
             }));

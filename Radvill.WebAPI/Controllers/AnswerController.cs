@@ -52,7 +52,8 @@ namespace Radvill.WebAPI.Controllers
                             Accepted = answer.Accepted,
                             Category = answer.Question.Category.Name,
                             Answer = answer.Text,
-                            Question = answer.Question.Text
+                            Question = answer.Question.Text,
+                            TimeStamp = answer.TimeStamp
                         };
                     return Request.CreateResponse(HttpStatusCode.OK, answerDto);
                 }
