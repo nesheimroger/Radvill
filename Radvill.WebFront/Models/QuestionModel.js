@@ -30,7 +30,7 @@
         };
 
         answerModel.Decline = function() {
-            Radvill.CallApi("Answer", { AnswerID: answerModel.ID, Accepted: true }, "PUT", function (passedOn) {
+            Radvill.CallApi("Answer", { AnswerID: answerModel.ID, Accepted: false }, "PUT", function (passedOn) {
                 answerModel.Rated(false);
                 answerModel.Status(false);
                 if (passedOn) {

@@ -156,7 +156,6 @@ var Radvill = (function () {
                     var model = {
                         Message: message,
                     };
-                    ko.cleanNode($('#generic')[0]);
                     $("#notifications").append(template);
                     ko.applyBindings(model, $('#generic')[0]);
                     _timer = setTimeout(function () {

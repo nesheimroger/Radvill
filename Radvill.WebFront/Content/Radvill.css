@@ -15,7 +15,9 @@
   border-bottom: 1px solid #ccc; }
 
 .answer {
-  border-top: 1px solid #000; }
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  margin-bottom: 10px; }
   .answer:first-child {
     border-top: none; }
 
