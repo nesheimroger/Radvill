@@ -10,8 +10,7 @@
     ).then(function () {
         if (isAuthenticated) {
 
-            var websocket = new FancyWebSocket('ws://Radvill.WebApi/api/Socket');
-
+            var websocket = new FancyWebSocket('ws://10.0.1.3:8080/api/Socket');
 
             websocket.bind('QuestionAssigned', function() {
                 Radvill.Notifications.QuestionAssigned();
@@ -65,7 +64,7 @@ var Radvill = (function () {
             var deffered = $.Deferred();
             $.when(
                 $.ajax({
-                    url: 'http://Radvill.WebApi/api/' + url,
+                    url: 'http://10.0.1.3:8080/api/' + url,
                     data: data,
                     method: method,
                     xhrFields: {

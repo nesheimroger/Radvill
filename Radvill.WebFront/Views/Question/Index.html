@@ -1,5 +1,5 @@
 ﻿<section >
-    <form role="form" id="askForAdviceForm" action="javascript: Radvill.Controllers.QuestionController.Submit()">
+    <form role="form" id="askForAdviceForm">
         <fieldset>
             <legend>Be om råd</legend>
             <div class="form-group">
@@ -10,7 +10,7 @@
                 <label class="control-label" for="Question">Spørsmål</label>
                 <textarea data-bind="value: Question, valueUpdate: 'afterkeydown'" class="form-control" name="Question" id="Question" maxlength="200" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Send inn</button>
+            <button type="submit" class="btn btn-primary" data-bind="click: Submit">Send inn</button>
         </fieldset>
     </form>
 </section>

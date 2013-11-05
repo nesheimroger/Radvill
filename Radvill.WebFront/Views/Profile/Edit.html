@@ -5,7 +5,7 @@
             <legend>Min profil</legend>
             <div class="form-group">
                 <label class="control-label" for="displayName">Visningsnavn</label>
-                <input data-bind="value: DisplayName" type="text" class="form-control" id="displayName" placeholder="Visningsnavn" name="DisplayName" required>
+                <input data-bind="value: DisplayName, valueUpdate: 'afterkeydown'" type="text" class="form-control" id="displayName" placeholder="Visningsnavn" name="DisplayName" required>
             </div>
             <div class="form-group">
                 <label class="control-label" for="description">Beskrivelse</label>

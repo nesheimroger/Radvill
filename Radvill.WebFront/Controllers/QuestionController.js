@@ -17,21 +17,7 @@
             });
 
         },
-        
-        Submit: function() {
-            var postdata = {
-                CategoryId: Radvill.ViewModel().Category(),
-                Question: Radvill.ViewModel().Question()
-            };
-            
-            Radvill.CallApi("Question", postdata, "POST", function (success) {
-                if (success) {
-                    Radvill.Controllers.RequestsController.Index();
-                } else {
-                    alert("Beklager, men ingen kunne motta forespørselen din.");
-                }
-            });
-        },
+       
         
         View: function (id) {
             var postdata = {

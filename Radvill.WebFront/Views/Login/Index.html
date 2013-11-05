@@ -1,17 +1,17 @@
 ﻿<section>
-    <form role="form" id="loginForm" action="javascript: Radvill.Controllers.LoginController.Login()">
+    <form role="form" id="loginForm">
         <fieldset>
             <legend>Login</legend>
             <div class="form-group">
                 <label class="control-label" for="email">Epost</label>
-                <input data-bind="value: Email" type="Email" class="form-control" id="email" placeholder="Epost" name="Email" required>
+                <input data-bind="value: Email, valueUpdate: 'afterkeydown'" type="Email" class="form-control" id="email" placeholder="Epost" name="Email" required>
             </div>
             <div class="form-group">
                 <label class="control-label" for="password">Passord</label>
-                <input data-bind="value: Password" type="password" class="form-control" id="password" placeholder="Passord" name="Password" required>
+                <input data-bind="value: Password, valueUpdate: 'afterkeydown'" type="password" class="form-control" id="password" placeholder="Passord" name="Password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Logg inn</button>
-            <span>Har du ikke bruker? <a href="javascript:Radvill.Controllers.RegisterController.Index()">Gå til registering</a></span>
+            <button type="submit" class="btn btn-primary" data-bind="click: Submit">Logg inn</button>
+            <p>Har du ikke bruker? <a href="javascript:Radvill.Controllers.RegisterController.Index()">Gå til registering</a></p>
         </fieldset>
     </form>
 </section>
