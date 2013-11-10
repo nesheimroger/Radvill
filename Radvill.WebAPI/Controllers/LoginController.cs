@@ -46,8 +46,8 @@ namespace Radvill.WebAPI.Controllers
 
         public HttpResponseMessage Delete()
         {
-            //TODO: Implement logout.
-            throw new NotImplementedException();
+            FormsAuthentication.SignOut();
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

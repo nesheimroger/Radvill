@@ -1,9 +1,9 @@
 ﻿<section>
     <h2>Toppliste</h2>
-    <div data-bind="foreach: Profiles">
-        <div class="row">
-            <div class="col-xs-10"><a data-bind="text: DisplayName, click: View"></a></div>
-            <div class="col-xs-2" data-bind="text: Points"></div>
-        </div>
-    </div>
+    <ul data-bind="foreach: Profiles" class="scores">
+        <li data-bind="click: View">
+            <span data-bind="text: DisplayName"></span>
+            <span class="pull-right" data-bind="text: Points"></span>
+        </li>
+    </ul>
 </section>

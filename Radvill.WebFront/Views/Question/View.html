@@ -1,4 +1,4 @@
-﻿<section>
+﻿<section class="viewQuestion">
     <h2>Se spørsmål</h2>
     
     <label>Sendt inn:</label>
@@ -11,8 +11,9 @@
     <label data-bind="if: Answers().length">Svar:</label>
     <div data-bind="foreach: Answers">
         <div class="answer">
-            <p data-bind="text: Answer"></p>
+            
             <div data-bind="ifnot: Rated">
+                <p data-bind="text: Answer"></p>
                 <p>Godkjenner du dette svaret?</p>
                 <form>
                     <button data-bind="click: Accept" type="button" class="btn btn-success">Ja</button>
@@ -20,11 +21,11 @@
                 </form>
             </div>
             <div data-bind="if: Rated">
-                <div data-bind="if: Accepted">
-                    Godkjent
+                <div data-bind="if: Accepted" class="text-success">
+                    <p data-bind="text: Answer"></p>
                 </div>
-                <div data-bind="ifnot: Accepted">
-                    Avslått
+                <div data-bind="ifnot: Accepted" class="text-danger">
+                    <p data-bind="text: Answer"></p>
                 </div>
             </div>
 

@@ -28,9 +28,11 @@
         });
     };
 
-    answerQuestionModel.Submit = function() {
-        clearTimeout(_timerId);
-        Radvill.Controllers.AnswerController.Submit();
+    answerQuestionModel.Submit = function () {  
+        if (answerQuestionModel.Answer != "") {
+            clearTimeout(_timerId);
+            Radvill.Controllers.AnswerController.Submit();
+        }
     };
     
     

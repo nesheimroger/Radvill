@@ -17,9 +17,7 @@
             ID: answer.ID,
             Accepted: ko.observable(answer.Accepted),
             Answer: answer.Text,
-            Rated: ko.observable(function() {
-                return answer.Accepted != null;
-            }())
+            Rated: ko.observable(answer.Accepted != null)
         };
 
         answerModel.Accept = function() {
@@ -31,7 +29,7 @@
 
         answerModel.Decline = function() {
             Radvill.CallApi("Answer", { AnswerID: answerModel.ID, Accepted: false }, "PUT", function (passedOn) {
-                answerModel.Rated(false);
+                answerModel.Rated(true);
                 answerModel.Status(false);
                 if (passedOn) {
                     Radvill.Notifications.Generic("Ditt spørsmål har blitt sendt videre");

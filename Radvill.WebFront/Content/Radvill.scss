@@ -1,11 +1,16 @@
-.logo{
-	a{
-		color: #000;
-		&:hover{
-			text-decoration: none;
-			color: #000;
-		}
+
+body{
+	background-color: #fafafa
+}
+
+.main-header{
+	background-color: #26637f;
+	h1{
+		margin: 10px 0;
+		font-size: 26px;
+		color: #ffffff;
 	}
+	margin-bottom: 10px;
 }
 
 .timer{
@@ -13,33 +18,99 @@
 	margin-right: 10px;
 }
 
+input + p, button + p{
+margin: 10px 0;
+}
+
+legend, h2{
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin-bottom: 20px;
+	font-size: 21px;
+	line-height: inherit;
+	color: #333;
+	border: 0;
+	border-bottom: 1px solid #000;
+	margin-top: 0;
+}
+
+.tab-pane{
+	background-color: #fff;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 10px 15px;
+}
+
+
+
+
+ul.scores{
+	padding-left: 0;
+
+	li{
+		padding: 5px 10px;
+		border: 1px solid #008BCC;
+		margin-bottom: 5px;
+		background-color: #fefefe;
+		list-style: none;
+
+		&:hover{
+			cursor: pointer;
+			background-color: #eee;
+		}
+	}
+}
+
 
 #notifications {
 	&:hover{
 		cursor: pointer;
 	}
-
-	.requestNotification{
-	
-	}
 }
 
 .home{
-	.nav-primary{
-		border-bottom: 1px solid #ccc;
+	ul.nav-primary{
+
+		li{
+			border: 1px solid #008BCC;
+			margin-bottom: 5px;
+			background-color: #fefefe;
+		}
 	}
 
 	.nav-secondary{
-	
+		margin-top: 20px;
+		padding-left: 0;
+
+		li{
+			list-style: none;
+			padding-left: 0;
+			margin: 5px 0;
+		}
 	}
 }
 
-.answer{
-	border-top: 1px solid #000;
+.answer, .question{
+	margin: 5px 0 15px 0;
+
+	header{
+		font-size: 12px;
+		color: #666;
+		border-bottom: 1px solid #ccc;
+		margin-bottom: 5px;
+	}
+
+}
+
+.viewQuestion .answer{
 	padding-top: 10px;
+	border-top: 1px dashed #ccc;
 	margin-bottom: 10px;
 
 	&:first-child{
+		padding-top: 0;
 		border-top: none;
 	}
 }
