@@ -9,8 +9,6 @@ Visual Studio 2012
     - Nuget Package Manager
     
 SQL Express 2012 with tools (http://www.microsoft.com/en-us/download/details.aspx?id=29062)
- - Instance Name : SQLEXPRESS
- - Set up mixed mode authentication (password utv+01)
  
 IIS8 (Express):
  - http://www.iis.net/learn/install/installing-iis-7/installing-iis-on-windows-vista-and-windows-7 (IIS7 guide, but pretty much the same)
